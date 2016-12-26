@@ -14,5 +14,6 @@ namespace api.Models
         public string DatePublish { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }
+        public IEnumerable<string> Keywords { get; set; }
     }
 }
