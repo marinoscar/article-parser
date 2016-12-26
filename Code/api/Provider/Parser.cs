@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using AngleSharp.Parser.Html;
+using api.Models;
 using NReadability;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,26 @@ namespace api.Provider
             {
                 Title = result.ExtractedTitle,
                 Content = content,
-                Url = url
+                Url = url,
+                ImageUrl = ExtractImage(result.ExtractedContent),
+                Author = ExtractAuthor(result.ExtractedContent)
             };
+        }
+
+        private string ExtractImage(string content)
+        {
+            var parser = new HtmlParser();
+            var document = parser.Parse(content);
+            var result = document.QuerySelectorAll("meta[property=\"og:image\"]").FirstOrDefault();
+            return result != null ? result.GetAttribute("content") : string.Empty;
+        }
+
+        private string ExtractAuthor(string content)
+        {
+            var parser = new HtmlParser();
+            var document = parser.Parse(content);
+            var result = document.QuerySelectorAll("meta[name=\"author\"]").FirstOrDefault();
+            return result != null ? result.GetAttribute("content") : string.Empty;
         }
 
         private string CleanUp(string content)
