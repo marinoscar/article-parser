@@ -25,13 +25,21 @@ namespace api.Provider
                     PrettyPrint = true
                 }
             });
-            var content = RemoveStyles(result.ExtractedContent);
+            var content = CleanUp(result.ExtractedContent);
             return new ParserResult()
             {
                 Title = result.ExtractedTitle,
                 Content = content,
                 Url = url
             };
+        }
+
+        private string CleanUp(string content)
+        {
+            var result = string.Empty;
+            result = RemoveStyles(content);
+            result = RemoveImages(result);
+            return result;
         }
 
         private string RemoveStyles(string content)
@@ -41,6 +49,16 @@ namespace api.Provider
             var result = string.Empty;
             result = Regex.Replace(content, headExp, string.Empty);
             result = Regex.Replace(result, classExp, string.Empty);
+            return result;
+        }
+
+        private string RemoveImages(string content)
+        {
+            var result = string.Empty;
+            const string picExp = @"<picture>[\s\S]*</picture>";
+            const string imgExp = @"<img[\s\S]*?>";
+            result = Regex.Replace(content, picExp, string.Empty);
+            result = Regex.Replace(result, imgExp, string.Empty);
             return result;
         }
     }
