@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Parser.Html;
 using api.Models;
+using api.Security;
 using NReadability;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,9 @@ namespace api.Provider
             return new ParserResult()
             {
                 Title = result.ExtractedTitle,
+                TitleHash = HashManager.GetHashString(result.ExtractedTitle),
                 Content = content,
+                ContentHash = HashManager.GetHashString(content),
                 Url = url,
                 ImageUrl = ExtractImage(result.ExtractedContent),
                 Author = ExtractAuthor(result.ExtractedContent),
