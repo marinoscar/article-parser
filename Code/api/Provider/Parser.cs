@@ -29,6 +29,7 @@ namespace api.Provider
             });
             var content = CleanUp(result.ExtractedContent);
             var keywords = watson.GetKeywords(url);
+            var categories = watson.GetTaxonomy(url);
             return new ParserResult()
             {
                 Title = result.ExtractedTitle,
@@ -36,7 +37,8 @@ namespace api.Provider
                 Url = url,
                 ImageUrl = ExtractImage(result.ExtractedContent),
                 Author = ExtractAuthor(result.ExtractedContent),
-                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => i.Text).ToArray().Take(5)
+                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => i.Text).ToArray().Take(10),
+                Categories = categories.Items.Take(5)
             };
         }
 

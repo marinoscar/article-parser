@@ -15,5 +15,6 @@ namespace api.Models
         public string ImageUrl { get; set; }
         public string Url { get; set; }
         public IEnumerable<string> Keywords { get; set; }
+        public IEnumerable<string> Categories { get; set; }
     }
 }

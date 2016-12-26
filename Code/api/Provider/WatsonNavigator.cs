@@ -23,6 +23,14 @@ namespace api.Provider
             return result;
         }
 
+        public WatsonResult<string> GetTaxonomy(string url)
+        {
+            var response = Execute(url, "URLGetRankedTaxonomy");
+            var json = ParseResponse(response);
+            var result = LoadResponse<string>(json, LoadCategories);
+            return result;
+        }
+
         private IRestResponse Execute(string url, string apiCall)
         {
             var apiUrl = string.Format("{0}/{1}?apikey={2}", GetUrl(), apiCall, GetApiKey());
@@ -60,6 +68,23 @@ namespace api.Provider
                 });
             }
             return result;
+        }
+
+        private List<string> LoadCategories(JToken json)
+        {
+            var result = new List<TaxonomyItem>();
+            var array = (JArray)json["taxonomy"];
+            foreach (JToken token in array)
+            {
+                result.Add(new TaxonomyItem()
+                {
+                    Score = Convert.ToDouble(token["score"]),
+                    Label = Convert.ToString(token["label"]),
+                    IsConfident = token["confident"] == null
+                });
+            }
+            var item = result.Where(i => i.IsConfident).OrderByDescending(i => i.Score).FirstOrDefault();
+            return item == null ? new List<string>() : item.Label.Split("/".ToCharArray()).Where(i => !string.IsNullOrWhiteSpace(i)).ToList();
         }
 
         private string GetApiKey()
