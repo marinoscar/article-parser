@@ -14,6 +14,7 @@ namespace api.Provider
     {
         public ParserResult ParseFromUrl(string url)
         {
+            var watson = new WatsonNavigator();
             var transcoder = new NReadabilityWebTranscoder();
             var result = transcoder.Transcode(new WebTranscodingInput(url)
             {
@@ -27,13 +28,15 @@ namespace api.Provider
                 }
             });
             var content = CleanUp(result.ExtractedContent);
+            var keywords = watson.GetKeywords(url);
             return new ParserResult()
             {
                 Title = result.ExtractedTitle,
                 Content = content,
                 Url = url,
                 ImageUrl = ExtractImage(result.ExtractedContent),
-                Author = ExtractAuthor(result.ExtractedContent)
+                Author = ExtractAuthor(result.ExtractedContent),
+                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => i.Text).ToArray().Take(5)
             };
         }
 
