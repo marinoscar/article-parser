@@ -9,6 +9,8 @@ namespace api
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.SuppressHostPrincipal();
             // Web API configuration and services
 
             // Web API routes

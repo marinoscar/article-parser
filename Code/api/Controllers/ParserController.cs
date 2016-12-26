@@ -1,5 +1,6 @@
 ﻿using api.Models;
 using api.Provider;
+using api.Security;
 using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
+    [TokenAuthentication]
     public class ParserController : ApiController
     {
         [SwaggerOperation("Get")]
