@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace api.Provider
 {
@@ -24,10 +25,11 @@ namespace api.Provider
 
         private IRestResponse Execute(string url, string apiCall)
         {
-            var client = new RestClient(GetUrl());
-            var request = new RestRequest(apiCall, Method.POST);
-            request.AddParameter("apikey", GetApiKey());
-            request.AddParameter("application/x-www-form-urlencoded", string.Format("outputMode=json&url={0}", url), ParameterType.RequestBody);
+            var apiUrl = string.Format("{0}/{1}?apikey={2}", GetUrl(), apiCall, GetApiKey());
+            var client = new RestClient(apiUrl);
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            request.AddParameter("application/x-www-form-urlencoded", string.Format("outputMode=json&url={0}", HttpUtility.UrlEncode(url)), ParameterType.RequestBody);
             return client.Execute(request);
         }
 
@@ -65,9 +67,9 @@ namespace api.Provider
             return ConfigurationManager.AppSettings["watson.api.key"];
         }
 
-        private string GetUrl()
+        private Uri GetUrl()
         {
-            return ConfigurationManager.AppSettings["watson.api.url"];
+            return new Uri(ConfigurationManager.AppSettings["watson.api.url"]);
         }
     }
 }
