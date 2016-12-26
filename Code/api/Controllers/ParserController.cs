@@ -12,10 +12,10 @@ namespace api.Controllers
 {
     public class ParserController : ApiController
     {
-        [SwaggerOperation("Parse")]
+        [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public ParserResult Parse(string url)
+        public ParserResult Get(string url)
         {
             var parser = new Parser();
             return parser.ParseFromUrl(url);
