@@ -1,4 +1,5 @@
 ﻿using api.Models;
+using api.Provider;
 using api.Security;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -13,12 +14,13 @@ namespace api.Controllers
     [TokenAuthentication]
     public class WordpressController : ApiController
     {
-        // POST api/values
         [SwaggerOperation("Create")]
         [SwaggerResponse(HttpStatusCode.Created)]
-        public void Post([FromBody]ParserResult value)
+        public HttpResponseMessage Post(ParserResult value)
         {
-
+            var wpManager = new WordpressManager();
+            wpManager.Post(value);
+            return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
         }
     }
 }

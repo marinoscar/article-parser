@@ -25,6 +25,7 @@ namespace api.Provider
                     terms = GetTerms(item),
                     custom_fields = GetCustomFields(item)
                 };
+                wpClient.NewPost(post);
             }
         }
 

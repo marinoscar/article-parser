@@ -56,7 +56,7 @@ namespace api.Provider
                 Url = url,
                 ImageUrl = ExtractImage(document),
                 Author = ExtractAuthor(result.ExtractedContent),
-                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
+                Keywords = keywords.Items.Where(i => i.Relevance > 0.85).OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
                 Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(10),
                 Images = ExtractAllImages(document)
             };
