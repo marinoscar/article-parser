@@ -1,4 +1,5 @@
-﻿using AngleSharp.Parser.Html;
+﻿using AngleSharp.Dom.Html;
+using AngleSharp.Parser.Html;
 using api.Models;
 using api.Security;
 using NReadability;
@@ -28,6 +29,8 @@ namespace api.Provider
                     PrettyPrint = true
                 }
             });
+            var parser = new HtmlParser();
+            var document = parser.Parse(result.ExtractedContent);
             var content = CleanUp(result.ExtractedContent);
             var keywords = watson.GetKeywords(url);
             var categories = watson.GetTaxonomy(url);
@@ -38,19 +41,24 @@ namespace api.Provider
                 Content = content,
                 ContentHash = HashManager.GetHashString(content),
                 Url = url,
-                ImageUrl = ExtractImage(result.ExtractedContent),
+                ImageUrl = ExtractImage(document),
                 Author = ExtractAuthor(result.ExtractedContent),
-                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray().Take(10),
-                Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(5)
+                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
+                Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(10),
+                Images = ExtractAllImages(document)
             };
         }
 
-        private string ExtractImage(string content)
+        private string ExtractImage(IHtmlDocument document)
         {
-            var parser = new HtmlParser();
-            var document = parser.Parse(content);
             var result = document.QuerySelectorAll("meta[property=\"og:image\"]").FirstOrDefault();
             return result != null ? result.GetAttribute("content") : string.Empty;
+        }
+
+        private IEnumerable<string> ExtractAllImages(IHtmlDocument document)
+        {
+            return document.QuerySelectorAll("img").Select(i => i.GetAttribute("src")).Where(i => !string.IsNullOrWhiteSpace(i));
+            
         }
 
         private string ExtractAuthor(string content)

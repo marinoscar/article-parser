@@ -13,7 +13,7 @@ namespace api
         public static string PretifyWords(string content)
         {
             var result = new List<string>();
-            foreach(var word in content.Split(" ".ToCharArray()).Where(i => string.IsNullOrWhiteSpace(i)))
+            foreach(var word in content.Split(" ".ToCharArray()).Where(i => !string.IsNullOrWhiteSpace(i)))
             {
                 result.Add(string.Format("{0}{1}",char.ToUpper(word[0]),word.Substring(1)));
             }
