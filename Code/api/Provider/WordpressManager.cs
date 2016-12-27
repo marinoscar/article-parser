@@ -23,8 +23,18 @@ namespace api.Provider
                     post_date = DateTime.Now,
                     post_title = item.Title,
                     terms = GetTerms(item),
+                    custom_fields = GetCustomFields(item)
                 };
             }
+        }
+
+        private CustomFields[] GetCustomFields(ParserResult item)
+        {
+            return new CustomFields[] {
+                new CustomFields() { key = "title-hash", value = item.TitleHash },
+                new CustomFields() { key = "content-hash", value = item.ContentHash },
+                new CustomFields() { key = "item-id", value = item.Id },
+            };
         }
 
         private Term[] GetTerms(ParserResult item)
