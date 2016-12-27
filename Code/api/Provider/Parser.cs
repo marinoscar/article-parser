@@ -46,6 +46,7 @@ namespace api.Provider
             var content = CleanUp(result.ExtractedContent);
             var keywords = watson.GetKeywords(url);
             var categories = watson.GetTaxonomy(url);
+            var imgUrl = ExtractImage(document);
             return new ParserResult()
             {
                 UserId = AccountManager.GetCurrent().Id,
@@ -53,13 +54,29 @@ namespace api.Provider
                 TitleHash = HashManager.GetHashString(result.ExtractedTitle),
                 Content = content,
                 ContentHash = HashManager.GetHashString(content),
+                FormattedContent = AddImageAndSource(content, result.ExtractedTitle, url, imgUrl),
                 Url = url,
-                ImageUrl = ExtractImage(document),
+                ImageUrl = imgUrl,
                 Author = ExtractAuthor(result.ExtractedContent),
                 Keywords = keywords.Items.Where(i => i.Relevance > 0.85).OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
                 Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(10),
                 Images = ExtractAllImages(document)
             };
+        }
+
+        private string AddImageAndSource(string content, string title, string url, string imgUrl)
+        {
+            var parser = new HtmlParser();
+            var document = parser.Parse(content);
+            var body = document.GetElementsByTagName("body").FirstOrDefault();
+            if (body == null) return content;
+            var p = document.CreateElement("p");
+            p.InnerHtml = string.Format("<strong>Original Content: <a href='{0}'>{1}</a> </strong>", url, title);
+            body.Append(p);
+            var img = document.CreateElement("img");
+            img.SetAttribute("src", imgUrl);
+            body.InsertBefore(body.NextSibling, img);
+            return document.DocumentElement.OuterHtml;
         }
 
         public void Persist(ParserResult value)

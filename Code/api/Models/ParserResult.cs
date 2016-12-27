@@ -7,6 +7,26 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
+
+    public interface IParserResult
+    {
+        string Author { get; set; }
+        IEnumerable<string> Categories { get; set; }
+        string Content { get; set; }
+        string ContentHash { get; set; }
+        string FormattedContent { get; set; }
+        string DatePublish { get; set; }
+        string Id { get; set; }
+        IEnumerable<string> Images { get; set; }
+        string ImageUrl { get; set; }
+        IEnumerable<string> Keywords { get; set; }
+        string Title { get; set; }
+        string TitleHash { get; set; }
+        string Url { get; set; }
+        string UserId { get; set; }
+        DateTime UtcCreatedOn { get; set; }
+    }
+
     public class ParserResult : IParserResult
     {
         public ParserResult()
@@ -20,6 +40,7 @@ namespace api.Models
         public string TitleHash { get; set; }
         public string Content { get; set; }
         public string ContentHash { get; set; }
+        public string FormattedContent { get; set; }
         public string Author { get; set; }
         public string DatePublish { get; set; }
         public string ImageUrl { get; set; }
@@ -28,6 +49,7 @@ namespace api.Models
         public IEnumerable<string> Keywords { get; set; }
         public IEnumerable<string> Categories { get; set; }
         public DateTime UtcCreatedOn { get; set; }
+
     }
 
     public class ParserResultEntity : TableEntity, IParserResult
@@ -52,6 +74,7 @@ namespace api.Models
         public string TitleHash { get; set; }
         public string Content { get; set; }
         public string ContentHash { get; set; }
+        public string FormattedContent { get; set; }
         public string Author { get; set; }
         public string DatePublish { get; set; }
         public string ImageUrl { get; set; }
