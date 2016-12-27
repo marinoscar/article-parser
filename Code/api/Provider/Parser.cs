@@ -85,7 +85,7 @@ namespace api.Provider
 
         public void Persist(ParserResult value)
         {
-            var contentRepo = new ContentRepository(new TableStorageDataContext());
+            var contentRepo = new ContentRepository(default(IDataContext));
             contentRepo.PersistResult(value);
         }
 

@@ -14,7 +14,7 @@ namespace api.Provider
     {
         private ContentRepository _repository;
 
-        public WordpressManager() : this(new AccountManager(), new TableStorageDataContext())
+        public WordpressManager() : this(new AccountManager(), default(IDataContext))
         {
 
         }
