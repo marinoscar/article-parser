@@ -14,22 +14,19 @@ namespace api.Provider
     {
         private ContentRepository _repository;
 
-        public WordpressManager() : this(new AccountManager(), default(IDataContext))
+        public WordpressManager() : this(new MongoDataContext("kapp"))
         {
 
         }
 
-        public WordpressManager(IAccountManager accountManager, IDataContext dataContext)
+        public WordpressManager(IDataContext dataContext)
         {
-            AccountManager = accountManager;
             _repository = new ContentRepository(dataContext);
         }
 
-        public IAccountManager AccountManager { get; private set; }
-
         public string Post(string postId)
         {
-            var item = _repository.GetResult(AccountManager.GetCurrent().Id, postId);
+            var item = _repository.GetResult(postId);
             if (item == null) return string.Empty;
             return Post(item);
         }
@@ -51,7 +48,7 @@ namespace api.Provider
                 };
                 result = wpClient.NewPost(post);
             }
-            return result;
+            return string.Format("{0}?p={1}", config.Url, result);
         }
 
         private CustomFields[] GetCustomFields(ParserResult item)

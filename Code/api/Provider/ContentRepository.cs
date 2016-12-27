@@ -1,4 +1,5 @@
 ﻿using api.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace api.Provider
 {
     public class ContentRepository
     {
+        public ContentRepository()
+        {
+            DataContext = new MongoDataContext("kapp");
+        }
+
         public ContentRepository(IDataContext context)
         {
             DataContext = context;
@@ -21,9 +27,10 @@ namespace api.Provider
             DataContext.Insert<ParserResult>("contents", item);
         }
 
-        public ParserResult GetResult(string userId, string postId)
+        public ParserResult GetResult(string postId)
         {
-            return null;
+            var filter = Builders<ParserResult>.Filter.Eq("Id", postId);
+            return DataContext.Select<ParserResult>("contents", filter).FirstOrDefault() ;
         }
     }
 }
