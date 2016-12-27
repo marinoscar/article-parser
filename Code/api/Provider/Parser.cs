@@ -73,9 +73,13 @@ namespace api.Provider
             var p = document.CreateElement("p");
             p.InnerHtml = string.Format("<strong>Original Content: <a href='{0}'>{1}</a> </strong>", url, title);
             body.Append(p);
-            var img = document.CreateElement("img");
-            img.SetAttribute("src", imgUrl);
-            body.InsertBefore(body.NextSibling, img);
+            if (!string.IsNullOrWhiteSpace(imgUrl))
+            {
+                var img = document.CreateElement("img");
+                img.SetAttribute("src", imgUrl);
+                img.SetAttribute("class", "post-image-formatting-class");
+                body.InsertBefore(body.NextSibling, img);
+            }
             return document.DocumentElement.OuterHtml;
         }
 
