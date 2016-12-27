@@ -38,7 +38,7 @@ namespace api.Provider
                     DontIncludeDocTypeMetaElement = true,
                     DontIncludeGeneratorMetaElement = true,
                     DontIncludeMobileSpecificMetaElements = true,
-                    PrettyPrint = true
+                    PrettyPrint = false
                 }
             });
             var parser = new HtmlParser();
