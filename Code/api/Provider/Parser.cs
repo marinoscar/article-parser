@@ -78,7 +78,7 @@ namespace api.Provider
                 var img = document.CreateElement("img");
                 img.SetAttribute("src", imgUrl);
                 img.SetAttribute("class", "post-image-formatting-class");
-                body.InsertBefore(body.NextSibling, img);
+                body.Insert(AngleSharp.Dom.AdjacentPosition.AfterBegin, img.OuterHtml);
             }
             return document.DocumentElement.OuterHtml;
         }

@@ -157,7 +157,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\IParserResult.cs" />
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\ParserResult.cs" />
     <Compile Include="Models\TaxonomyItem.cs" />
