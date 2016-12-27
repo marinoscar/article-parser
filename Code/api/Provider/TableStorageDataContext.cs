@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace api.Provider
 {
-    public class TableStorageDataContext
+    public class TableStorageDataContext : IDataContext
     {
         CloudStorageAccount _account;
         CloudTableClient _tableClient;
