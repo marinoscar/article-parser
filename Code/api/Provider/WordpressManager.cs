@@ -1,4 +1,5 @@
 ﻿using api.Models;
+using api.Security;
 using POSSIBLE.WordPress.XmlRpcClient;
 using POSSIBLE.WordPress.XmlRpcClient.Models;
 using System;
@@ -11,25 +12,49 @@ namespace api.Provider
 {
     public class WordpressManager
     {
-        public void Post(ParserResult item)
+        private ContentRepository _repository;
+
+        public WordpressManager() : this(new AccountManager(), new TableStorageDataContext())
+        {
+
+        }
+
+        public WordpressManager(IAccountManager accountManager, IDataContext dataContext)
+        {
+            AccountManager = accountManager;
+            _repository = new ContentRepository(dataContext);
+        }
+
+        public IAccountManager AccountManager { get; private set; }
+
+        public string Post(string postId)
+        {
+            var item = _repository.GetResult(AccountManager.GetCurrent().Id, postId);
+            if (item == null) return string.Empty;
+            return Post(item);
+        }
+
+        public string Post(IParserResult item)
         {
             var config = WordpressConfig.Load();
+            var result = string.Empty;
             using (var wpClient = new WordPressXmlRpcClient(config.Url, config.User, config.Password))
             {
                 var post = new Post()
                 {
                     post_author = item.Author,
-                    post_content = item.Content,
+                    post_content = item.FormattedContent,
                     post_date = DateTime.Now,
                     post_title = item.Title,
                     terms = GetTerms(item),
                     custom_fields = GetCustomFields(item)
                 };
-                wpClient.NewPost(post);
+                result = wpClient.NewPost(post);
             }
+            return result;
         }
 
-        private CustomFields[] GetCustomFields(ParserResult item)
+        private CustomFields[] GetCustomFields(IParserResult item)
         {
             return new CustomFields[] {
                 new CustomFields() { key = "title-hash", value = item.TitleHash },
@@ -38,7 +63,7 @@ namespace api.Provider
             };
         }
 
-        private Term[] GetTerms(ParserResult item)
+        private Term[] GetTerms(IParserResult item)
         {
             var terms = new List<Term>();
             foreach (var tag in item.Keywords)

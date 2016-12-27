@@ -16,11 +16,11 @@ namespace api.Controllers
     {
         [SwaggerOperation("Create")]
         [SwaggerResponse(HttpStatusCode.Created)]
-        public HttpResponseMessage Post(ParserResult value)
+        public HttpResponseMessage Post(string key)
         {
             var wpManager = new WordpressManager();
-            wpManager.Post(value);
-            return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
+            var res = wpManager.Post(key);
+            return Request.CreateResponse<string>(HttpStatusCode.Created, res);
         }
     }
 }

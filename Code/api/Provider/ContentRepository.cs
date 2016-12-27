@@ -21,5 +21,10 @@ namespace api.Provider
             var entity = new ParserResultEntity(item);
             DataContext.Insert<ParserResultEntity>(TableMap.Contents, new ParserResultEntity[] { entity });
         }
+
+        public IParserResult GetResult(string userId, string postId)
+        {
+            return DataContext.Get<ParserResultEntity>(TableMap.Contents, userId, postId);
+        }
     }
 }
