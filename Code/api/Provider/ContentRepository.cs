@@ -18,13 +18,12 @@ namespace api.Provider
 
         public void PersistResult(ParserResult item)
         {
-            var entity = new ParserResultEntity(item);
-            DataContext.Insert<ParserResultEntity>(TableMap.Contents, new ParserResultEntity[] { entity });
+            DataContext.Insert<ParserResult>("contents", item);
         }
 
-        public IParserResult GetResult(string userId, string postId)
+        public ParserResult GetResult(string userId, string postId)
         {
-            return DataContext.Get<ParserResultEntity>(TableMap.Contents, userId, postId);
+            return null;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace api.Provider
             return Post(item);
         }
 
-        public string Post(IParserResult item)
+        public string Post(ParserResult item)
         {
             var config = WordpressConfig.Load();
             var result = string.Empty;
@@ -54,7 +54,7 @@ namespace api.Provider
             return result;
         }
 
-        private CustomFields[] GetCustomFields(IParserResult item)
+        private CustomFields[] GetCustomFields(ParserResult item)
         {
             return new CustomFields[] {
                 new CustomFields() { key = "title-hash", value = item.TitleHash },
@@ -63,7 +63,7 @@ namespace api.Provider
             };
         }
 
-        private Term[] GetTerms(IParserResult item)
+        private Term[] GetTerms(ParserResult item)
         {
             var terms = new List<Term>();
             foreach (var tag in item.Keywords)
