@@ -40,8 +40,8 @@ namespace api.Provider
                 Url = url,
                 ImageUrl = ExtractImage(result.ExtractedContent),
                 Author = ExtractAuthor(result.ExtractedContent),
-                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => i.Text).ToArray().Take(10),
-                Categories = categories.Items.Take(5)
+                Keywords = keywords.Items.OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray().Take(10),
+                Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(5)
             };
         }
 
@@ -64,28 +64,8 @@ namespace api.Provider
         private string CleanUp(string content)
         {
             var result = string.Empty;
-            result = RemoveStyles(content);
-            result = RemoveImages(result);
-            return result;
-        }
-
-        private string RemoveStyles(string content)
-        {
-            const string headExp = @"<head>[\s\S]*</head>";
-            const string classExp = @"class=(""|')[\s\S]*?(""|')";
-            var result = string.Empty;
-            result = Regex.Replace(content, headExp, string.Empty);
-            result = Regex.Replace(result, classExp, string.Empty);
-            return result;
-        }
-
-        private string RemoveImages(string content)
-        {
-            var result = string.Empty;
-            const string picExp = @"<picture>[\s\S]*</picture>";
-            const string imgExp = @"<img[\s\S]*?>";
-            result = Regex.Replace(content, picExp, string.Empty);
-            result = Regex.Replace(result, imgExp, string.Empty);
+            result = StringUtils.RemoveStyles(content);
+            result = StringUtils.RemoveImages(result);
             return result;
         }
     }
