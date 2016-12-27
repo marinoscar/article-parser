@@ -14,6 +14,18 @@ namespace api.Provider
 {
     public class Parser
     {
+        public Parser() : this(new AccountManager())
+        {
+
+        }
+
+        public Parser(IAccountManager accountManager)
+        {
+            AccountManager = accountManager;
+        }
+
+        public IAccountManager AccountManager { get; private set; }
+
         public ParserResult ParseFromUrl(string url)
         {
             var watson = new WatsonNavigator();
@@ -36,6 +48,7 @@ namespace api.Provider
             var categories = watson.GetTaxonomy(url);
             return new ParserResult()
             {
+                UserId = AccountManager.GetCurrent().Id,
                 Title = result.ExtractedTitle,
                 TitleHash = HashManager.GetHashString(result.ExtractedTitle),
                 Content = content,

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace api.Security
 {
-    public class AccountManager
+    public class AccountManager : IAccountManager
     {
         public User GetCurrent()
         {
