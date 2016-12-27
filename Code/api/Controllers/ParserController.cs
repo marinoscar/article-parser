@@ -25,8 +25,10 @@ namespace api.Controllers
 
         [SwaggerOperation("Persist")]
         [SwaggerResponse(HttpStatusCode.Created)]
-        public void Post([FromBody]string value)
+        public void Post(ParserResult value)
         {
+            var parser = new Parser();
+            parser.Persist(value);
         }
     }
 }

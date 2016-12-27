@@ -62,6 +62,12 @@ namespace api.Provider
             };
         }
 
+        public void Persist(ParserResult value)
+        {
+            var contentRepo = new ContentRepository(new TableStorageDataContext());
+            contentRepo.PersistResult(value);
+        }
+
         private string ExtractImage(IHtmlDocument document)
         {
             var result = document.QuerySelectorAll("meta[property=\"og:image\"]").FirstOrDefault();
