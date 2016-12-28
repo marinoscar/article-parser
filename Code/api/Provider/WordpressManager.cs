@@ -2,6 +2,7 @@
 using api.Security;
 using POSSIBLE.WordPress.XmlRpcClient;
 using POSSIBLE.WordPress.XmlRpcClient.Models;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,9 @@ namespace api.Provider
     {
         private ContentRepository _repository;
 
-        public WordpressManager() : this(new MongoDataContext("kapp"))
+        public WordpressManager(IContainer container)
         {
-
-        }
-
-        public WordpressManager(IDataContext dataContext)
-        {
-            _repository = new ContentRepository(dataContext);
+            _repository = new ContentRepository(container);
         }
 
         public string Post(WordpressOption options)

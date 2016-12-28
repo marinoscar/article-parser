@@ -20,7 +20,7 @@ namespace api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public ParserResult Get(string url)
         {
-            var parser = new Parser();
+            var parser = new Parser(Map.I.Container);
             return parser.ParseFromUrl(url);
         }
 
@@ -28,7 +28,7 @@ namespace api.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post(ParserResult value)
         {
-            var parser = new Parser();
+            var parser = new Parser(Map.I.Container);
             parser.Persist(value);
             return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
         }
@@ -39,7 +39,7 @@ namespace api.Controllers
         [ActionName("Create")]
         public HttpResponseMessage Create(ParseOptions value)
         {
-            var parser = new Parser();
+            var parser = new Parser(Map.I.Container);
             var result = parser.Parse(value);
             parser.Persist(result);
             return Request.CreateResponse<string>(HttpStatusCode.Created, JsonConvert.SerializeObject(result));

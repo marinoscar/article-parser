@@ -3,6 +3,7 @@ using AngleSharp.Parser.Html;
 using api.Models;
 using api.Security;
 using NReadability;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,13 @@ namespace api.Provider
 {
     public class Parser
     {
-        public Parser() : this(new AccountManager())
-        {
 
-        }
+        private IContainer _container;
 
-        public Parser(IAccountManager accountManager)
+        public Parser(IContainer container)
         {
-            AccountManager = accountManager;
+            _container = container;
+            AccountManager = _container.GetInstance<IAccountManager>();
         }
 
         public IAccountManager AccountManager { get; private set; }
@@ -92,7 +92,7 @@ namespace api.Provider
 
         public void Persist(ParserResult value)
         {
-            var contentRepo = new ContentRepository();
+            var contentRepo = new ContentRepository(_container);
             contentRepo.PersistResult(value);
         }
 

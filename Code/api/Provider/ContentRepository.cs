@@ -1,5 +1,6 @@
 ﻿using api.Models;
 using MongoDB.Driver;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,9 @@ namespace api.Provider
 {
     public class ContentRepository
     {
-        public ContentRepository()
+        public ContentRepository(IContainer container)
         {
-            DataContext = new MongoDataContext("kapp");
-        }
-
-        public ContentRepository(IDataContext context)
-        {
-            DataContext = context;
+            DataContext = container.GetInstance<IDataContext>("kapp");
         }
 
         public IDataContext DataContext { get; set; }

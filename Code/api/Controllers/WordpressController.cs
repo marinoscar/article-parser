@@ -18,7 +18,7 @@ namespace api.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post(WordpressOption value)
         {
-            var wpManager = new WordpressManager();
+            var wpManager = new WordpressManager(Map.I.Container);
             var res = wpManager.Post(value);
             return Request.CreateResponse<string>(HttpStatusCode.Created, res);
         }
