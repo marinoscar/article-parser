@@ -15,9 +15,11 @@ namespace api.Models
 
     public class PublishSocialMediaOptions
     {
+        public string Url { get; set; }
         public string Text { get; set; }
         public bool DoFacebook { get; set;}
         public bool DoTwitter { get; set; }
         public bool DoLinkedIn { get; set; }
+        public bool Buffer { get; set; }
     }
 }

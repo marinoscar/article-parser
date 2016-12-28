@@ -188,6 +188,7 @@
     <Compile Include="Provider\MongoDataContext.cs" />
     <Compile Include="Provider\Parser.cs" />
     <Compile Include="Provider\PublishManager.cs" />
+    <Compile Include="Provider\SocialMediaManager.cs" />
     <Compile Include="Provider\WatsonNavigator.cs" />
     <Compile Include="Provider\WordpressManager.cs" />
     <Compile Include="Security\AccountManager.cs" />
