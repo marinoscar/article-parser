@@ -15,7 +15,7 @@ namespace api.Provider
         public IRestResponse Publish(PublishSocialMediaOptions options)
         {
             var profile = GetProfile();
-            var url = string.Format("{0}/updates/create.json?access_token={2}", ConfigurationManager.AppSettings["buffer.api"], profile.Token);
+            var url = string.Format("{0}/updates/create.json?access_token={1}", ConfigurationManager.AppSettings["buffer.api"], profile.Token);
             var client = new RestClient(url);
             var request = new RestRequest(Method.POST);
             var payload = GetPayload(options, profile);
@@ -31,7 +31,8 @@ namespace api.Provider
             if (options.DoFacebook) sb.AppendFormat("profile_ids%5B%5D={0}&", profile.Fb);
             if (options.DoLinkedIn) sb.AppendFormat("profile_ids%5B%5D={0}&", profile.Li);
             if (options.DoTwitter) sb.AppendFormat("profile_ids%5B%5D={0}&", profile.Tw);
-            sb.AppendFormat("now={0}", !options.Buffer);
+            if(!options.Buffer)
+                sb.AppendFormat("now={0}", !options.Buffer);
             return sb.ToString();
         }
 
