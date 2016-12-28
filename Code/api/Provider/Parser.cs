@@ -54,7 +54,7 @@ namespace api.Provider
                 TitleHash = HashManager.GetHashString(result.ExtractedTitle),
                 Content = content,
                 ContentHash = HashManager.GetHashString(content),
-                FormattedContent = AddImageAndSource(content, result.ExtractedTitle, url, imgUrl),
+                FormattedContent = ProvideFormat(content, result.ExtractedTitle, url, imgUrl),
                 Url = url,
                 ImageUrl = imgUrl,
                 Author = ExtractAuthor(result.ExtractedContent),
@@ -64,7 +64,7 @@ namespace api.Provider
             };
         }
 
-        private string AddImageAndSource(string content, string title, string url, string imgUrl)
+        private string ProvideFormat(string content, string title, string url, string imgUrl)
         {
             var parser = new HtmlParser();
             var document = parser.Parse(content);
@@ -80,6 +80,7 @@ namespace api.Provider
                 img.SetAttribute("class", "post-image-formatting-class");
                 body.Insert(AngleSharp.Dom.AdjacentPosition.AfterBegin, img.OuterHtml);
             }
+            RemoveTitle(title, document);
             return document.DocumentElement.OuterHtml;
         }
 
@@ -99,6 +100,13 @@ namespace api.Provider
         {
             return document.QuerySelectorAll("img").Select(i => i.GetAttribute("src")).Where(i => !string.IsNullOrWhiteSpace(i));
             
+        }
+
+        private void RemoveTitle(string title, IHtmlDocument document)
+        {
+            var heading = document.All.FirstOrDefault(i => i.TextContent == title);
+            if (heading == null) return;
+            heading.OuterHtml = "<span data-removed-by-formatter='true'></span>";
         }
 
         private string ExtractAuthor(string content)
