@@ -44,7 +44,8 @@ namespace api.Provider
                     post_date = DateTime.Now,
                     post_title = item.Title,
                     terms = GetTerms(item),
-                    custom_fields = GetCustomFields(item)
+                    custom_fields = GetCustomFields(item),
+                    post_status = "Published",
                 };
                 result = wpClient.NewPost(post);
             }
@@ -57,6 +58,7 @@ namespace api.Provider
                 new CustomFields() { key = "title-hash", value = item.TitleHash },
                 new CustomFields() { key = "content-hash", value = item.ContentHash },
                 new CustomFields() { key = "item-id", value = item.Id },
+                new CustomFields() { key = "posted-by-marin-api", value = "true" },
             };
         }
 
