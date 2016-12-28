@@ -87,7 +87,7 @@ namespace api.Provider
                 body.Insert(AngleSharp.Dom.AdjacentPosition.AfterBegin, img.OuterHtml);
             }
             RemoveTitle(title, document);
-            return document.DocumentElement.OuterHtml;
+            return document.Body.InnerHtml.Replace("<head></head>", "").Replace("<body>", "").Replace("</body>", "");
         }
 
         public void Persist(ParserResult value)
