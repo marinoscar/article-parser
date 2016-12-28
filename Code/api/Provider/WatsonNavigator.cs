@@ -60,6 +60,7 @@ namespace api.Provider
         {
             var result = new List<Keyword>();
             var array = (JArray)json["keywords"];
+            if (array == null) return result;
             foreach(JToken token in array)
             {
                 result.Add(new Keyword() {
@@ -74,6 +75,7 @@ namespace api.Provider
         {
             var result = new List<TaxonomyItem>();
             var array = (JArray)json["taxonomy"];
+            if (array == null) return new List<string>();
             foreach (JToken token in array)
             {
                 result.Add(new TaxonomyItem()

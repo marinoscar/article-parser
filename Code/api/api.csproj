@@ -163,6 +163,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ParserController.cs" />
+    <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WordpressController.cs" />
     <Compile Include="FriendlyException.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\ParseOptions.cs" />
     <Compile Include="Models\ParserResult.cs" />
+    <Compile Include="Models\PublishOptions.cs" />
     <Compile Include="Models\TaxonomyItem.cs" />
     <Compile Include="Models\WatsonResult.cs" />
     <Compile Include="Models\WordpressConfig.cs" />
