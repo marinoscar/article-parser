@@ -175,6 +175,7 @@
     <Compile Include="Models\TaxonomyItem.cs" />
     <Compile Include="Models\WatsonResult.cs" />
     <Compile Include="Models\WordpressConfig.cs" />
+    <Compile Include="Models\WordpressOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ContentRepository.cs" />
     <Compile Include="Provider\MongoDataContext.cs" />

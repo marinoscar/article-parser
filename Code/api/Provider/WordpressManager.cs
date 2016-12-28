@@ -24,14 +24,14 @@ namespace api.Provider
             _repository = new ContentRepository(dataContext);
         }
 
-        public string Post(string postId)
+        public string Post(WordpressOption options)
         {
-            var item = _repository.GetResult(postId);
+            var item = _repository.GetResult(options.ArticleId);
             if (item == null) return string.Empty;
-            return Post(item);
+            return Post(item, options);
         }
 
-        public string Post(ParserResult item)
+        public string Post(ParserResult item, WordpressOption options)
         {
             var config = WordpressConfig.Load();
             var result = string.Empty;
@@ -45,7 +45,8 @@ namespace api.Provider
                     post_title = item.Title,
                     terms = GetTerms(item),
                     custom_fields = GetCustomFields(item),
-                    post_status = "Published",
+                    post_status = options.PostStatus,
+                    post_excerpt = options.PostExcerpt,
                 };
                 result = wpClient.NewPost(post);
             }
