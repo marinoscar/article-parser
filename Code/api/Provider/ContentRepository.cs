@@ -28,5 +28,11 @@ namespace api.Provider
             var filter = Builders<ParserResult>.Filter.Eq("Id", postId);
             return DataContext.Select<ParserResult>("contents", filter).FirstOrDefault() ;
         }
+
+        public void UpdateWpField(ParserResult item)
+        {
+            var update = Builders<ParserResult>.Update.Set("UtcUpdatedOn", DateTime.UtcNow).Set("WordpressId", item.WordpressId);
+            DataContext.Update<ParserResult>("contents", item.Id, update);
+        }
     }
 }

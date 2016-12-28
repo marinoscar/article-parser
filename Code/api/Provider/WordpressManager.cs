@@ -46,6 +46,8 @@ namespace api.Provider
                 };
                 result = wpClient.NewPost(post);
             }
+            item.WordpressId = result;
+            _repository.UpdateWpField(item);
             return string.Format("{0}?p={1}", config.Url, result);
         }
 

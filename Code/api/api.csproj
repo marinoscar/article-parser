@@ -175,10 +175,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Map.cs" />
+    <Compile Include="Models\IIdModel.cs" />
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\ParseOptions.cs" />
     <Compile Include="Models\ParserResult.cs" />
     <Compile Include="Models\PublishOptions.cs" />
+    <Compile Include="Models\PublishResult.cs" />
     <Compile Include="Models\TaxonomyItem.cs" />
     <Compile Include="Models\WatsonResult.cs" />
     <Compile Include="Models\WordpressConfig.cs" />

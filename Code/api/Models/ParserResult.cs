@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace api.Models
 {
 
-    public class ParserResult
+    public class ParserResult : IIdModel
     {
         public ParserResult()
         {
             UtcCreatedOn = DateTime.UtcNow;
+            UtcUpdatedOn = UtcCreatedOn;
             Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
@@ -25,10 +26,12 @@ namespace api.Models
         public string DatePublish { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }
+        public string WordpressId { get; set; }
         public IEnumerable<string> Images { get; set; }
         public IEnumerable<string> Keywords { get; set; }
         public IEnumerable<string> Categories { get; set; }
         public DateTime UtcCreatedOn { get; set; }
+        public DateTime UtcUpdatedOn { get; set; }
 
     }
 }

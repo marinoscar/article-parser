@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using api.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,8 @@ namespace api.Provider
     {
         void Insert<T>(string collection, T entity);
         IEnumerable<T> Select<T>(string collection, FilterDefinition<T> filter);
+        void Update<T>(string collection, string id, UpdateDefinition<T> update);
+        void Update<T>(string collection, T entity) where T : IIdModel;
     }
 
     public class MongoDataContext : IDataContext
@@ -31,6 +34,18 @@ namespace api.Provider
         {
             var coll = Database.GetCollection<T>(collection);
             coll.InsertOne(entity);
+        }
+
+        public void Update<T>(string collection, T entity) where T : IIdModel
+        {
+            var coll = Database.GetCollection<T>(collection);
+            coll.ReplaceOne(Builders<T>.Filter.Eq("Id", entity.Id), entity);
+        }
+
+        public void Update<T>(string collection, string id, UpdateDefinition<T> update)
+        {
+            var coll = Database.GetCollection<T>(collection);
+            coll.UpdateOne(Builders<T>.Filter.Eq("Id", id), update);
         }
 
         public IEnumerable<T> Select<T>(string collection, FilterDefinition<T> filter)

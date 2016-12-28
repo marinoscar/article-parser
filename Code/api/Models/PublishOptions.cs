@@ -8,7 +8,7 @@ namespace api.Models
 {
     public class PublishOptions
     {
-        public string Url { get; set; }
+        public ParseOptions Parse { get; set; }
         public WordpressOption Article { get; set; }
         public PublishSocialMediaOptions SocialMedia { get; set; }
     }
