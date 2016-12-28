@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Keyword.cs" />
+    <Compile Include="Models\ParseOptions.cs" />
     <Compile Include="Models\ParserResult.cs" />
     <Compile Include="Models\TaxonomyItem.cs" />
     <Compile Include="Models\WatsonResult.cs" />

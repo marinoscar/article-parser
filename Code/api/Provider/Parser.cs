@@ -28,9 +28,14 @@ namespace api.Provider
 
         public ParserResult ParseFromUrl(string url)
         {
+            return Parse(new ParseOptions() { Url = url });
+        }
+
+        public ParserResult Parse(ParseOptions options)
+        {
             var watson = new WatsonNavigator();
             var transcoder = new NReadabilityWebTranscoder();
-            var result = transcoder.Transcode(new WebTranscodingInput(url)
+            var result = transcoder.Transcode(new WebTranscodingInput(options.Url)
             {
                 DomSerializationParams = new DomSerializationParams()
                 {
@@ -44,8 +49,8 @@ namespace api.Provider
             var parser = new HtmlParser();
             var document = parser.Parse(result.ExtractedContent);
             var content = CleanUp(result.ExtractedContent);
-            var keywords = watson.GetKeywords(url);
-            var categories = watson.GetTaxonomy(url);
+            var keywords = watson.GetKeywords(options.Url);
+            var categories = watson.GetTaxonomy(options.Url);
             var imgUrl = ExtractImage(document);
             return new ParserResult()
             {
@@ -54,8 +59,8 @@ namespace api.Provider
                 TitleHash = HashManager.GetHashString(result.ExtractedTitle),
                 Content = content,
                 ContentHash = HashManager.GetHashString(content),
-                FormattedContent = ProvideFormat(content, result.ExtractedTitle, url, imgUrl),
-                Url = url,
+                FormattedContent = ProvideFormat(content, result.ExtractedTitle, options, imgUrl),
+                Url = options.Url,
                 ImageUrl = imgUrl,
                 Author = ExtractAuthor(result.ExtractedContent),
                 Keywords = keywords.Items.Where(i => i.Relevance > 0.85).OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
@@ -64,20 +69,21 @@ namespace api.Provider
             };
         }
 
-        private string ProvideFormat(string content, string title, string url, string imgUrl)
+        private string ProvideFormat(string content, string title, ParseOptions options, string imgUrl)
         {
             var parser = new HtmlParser();
             var document = parser.Parse(content);
             var body = document.GetElementsByTagName("body").FirstOrDefault();
             if (body == null) return content;
             var p = document.CreateElement("p");
-            p.InnerHtml = string.Format("<strong>Original Content: <a href='{0}'>{1}</a> </strong>", url, title);
+            p.InnerHtml = string.Format("<strong>Original Content: <a href='{0}'>{1}</a> </strong>", options.Url, title);
             body.Append(p);
             if (!string.IsNullOrWhiteSpace(imgUrl))
             {
                 var img = document.CreateElement("img");
                 img.SetAttribute("src", imgUrl);
-                img.SetAttribute("class", "post-image-formatting-class");
+                if(!string.IsNullOrWhiteSpace(options.ImageClass))
+                    img.SetAttribute("class", "post-image-formatting-class");
                 body.Insert(AngleSharp.Dom.AdjacentPosition.AfterBegin, img.OuterHtml);
             }
             RemoveTitle(title, document);

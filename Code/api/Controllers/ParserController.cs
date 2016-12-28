@@ -1,6 +1,7 @@
 ﻿using api.Models;
 using api.Provider;
 using api.Security;
+using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,18 @@ namespace api.Controllers
             var parser = new Parser();
             parser.Persist(value);
             return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
+        }
+
+        [SwaggerOperation("Create")]
+        [SwaggerResponse(HttpStatusCode.Created)]
+        [HttpPost()]
+        [ActionName("Create")]
+        public HttpResponseMessage Create(ParseOptions value)
+        {
+            var parser = new Parser();
+            var result = parser.Parse(value);
+            parser.Persist(result);
+            return Request.CreateResponse<string>(HttpStatusCode.Created, JsonConvert.SerializeObject(result));
         }
     }
 }
