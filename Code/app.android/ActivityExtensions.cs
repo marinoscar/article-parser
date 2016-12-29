@@ -36,7 +36,6 @@ namespace app.android
             dialog.SetTitle(title);
             dialog.SetMessage(message);
             dialog.SetCancelable(false);
-            dialog.Show();
             return dialog;
         }
 

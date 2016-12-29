@@ -12,6 +12,7 @@ using Android.Widget;
 using app.android.Models;
 using RestSharp;
 using System.Net;
+using System.Threading;
 
 namespace app.android
 {
@@ -33,16 +34,27 @@ namespace app.android
 
         private void PublishBtn_Click(object sender, EventArgs e)
         {
-            var wait = this.GetProcessDialog("Processing", "Please wait while we process the request...");
-            var result = PostData();
-            wait.Dismiss();
-            if (!result.Item1)
+            var result = default(Tuple<bool, string>);
+            var wait = new ProgressDialog(this);
+            wait.SetProgressStyle(ProgressDialogStyle.Spinner);
+            wait.SetTitle("Processing");
+            wait.SetMessage("Please wait while the information is stored...");
+            wait.SetCancelable(false);
+            wait.Show();
+            new Thread(new ThreadStart(delegate
             {
-                this.ShowDialogOk("Error", result.Item2);
-                return;
-            }
-            Toast.MakeText(this, result.Item2 ToastLength.Long).Show();
-            GoToMain();
+                RunOnUiThread(() =>
+                {
+                    result = PostData();
+                    if (!result.Item1)
+                    {
+                        this.ShowDialogOk("Error", result.Item2);
+                        return;
+                    }
+                    Toast.MakeText(this, result.Item2, ToastLength.Long).Show();
+                    GoToMain();
+                });
+            })).Start();
         }
 
         private void GoToMain()
@@ -82,7 +94,7 @@ namespace app.android
                 LinkedIn = FindViewById<CheckBox>(Resource.Id.linkedInChk).Checked
             };
             return result;
-        } 
+        }
 
     }
 }
