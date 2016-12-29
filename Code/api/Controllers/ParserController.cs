@@ -20,10 +20,10 @@ namespace api.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Get(string url)
         {
-            var result = default(ParserResult);
             var parser = new Parser(Map.I.Container);
-            result = parser.ParseFromUrl(url);
-            return Request.CreateResponse<ParserResult>(HttpStatusCode.Created, result);
+            return ErrorHandler.ExecuteCreate<ParserResult>(Request, () => {
+                return parser.ParseFromUrl(url);
+            });
         }
 
         [SwaggerOperation("Persist")]
@@ -31,15 +31,10 @@ namespace api.Controllers
         public HttpResponseMessage Post(ParserResult value)
         {
             var parser = new Parser(Map.I.Container);
-            try
-            {
+            return ErrorHandler.ExecuteCreate<string>(Request, () => {
                 parser.Persist(value);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
-            }
-            return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
+                return value.Id;
+            });
         }
 
         [SwaggerOperation("Create")]
@@ -48,18 +43,12 @@ namespace api.Controllers
         [ActionName("Create")]
         public HttpResponseMessage Create(ParseOptions value)
         {
-            var result = default(ParserResult);
             var parser = new Parser(Map.I.Container);
-            try
-            {
-                result = parser.Parse(value);
+            return ErrorHandler.ExecuteCreate<ParserResult>(Request, () => {
+                var result = parser.Parse(value);
                 parser.Persist(result);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
-            }
-            return Request.CreateResponse<ParserResult>(HttpStatusCode.Created, result);
+                return result;
+            });
         }
     }
 }

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ParserController.cs" />
     <Compile Include="Controllers\PublishController.cs" />
     <Compile Include="Controllers\WordpressController.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
