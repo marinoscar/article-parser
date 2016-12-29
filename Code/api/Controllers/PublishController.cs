@@ -20,8 +20,10 @@ namespace api.Controllers
         public HttpResponseMessage Post(PublishSocialMediaOptions value)
         {
             var publish = new SocialMediaManager();
-            var result = publish.Publish(value);
-            return Request.CreateResponse<string>(result.StatusCode, result.Content);
+            return ErrorHandler.ExecuteCreate<string>(Request, () => {
+                var result = publish.Publish(value);
+                return result.Content;
+            });
         }
 
         [SwaggerOperation("Persist")]
@@ -30,19 +32,10 @@ namespace api.Controllers
         [HttpPost]
         public HttpResponseMessage Persist(PublishOptions value)
         {
-            HttpResponseMessage response;
-            var result = default(PublishResult);
             var publish = new PublishManager(Map.I.Container);
-            try { result = publish.Publish(value); }
-            catch (FriendlyException)
-            {
-                response = Request.CreateResponse<PublishResult>(HttpStatusCode.Conflict, result);
-            }
-            catch (Exception ex)
-            {
-                response = Request.CreateResponse<string>(HttpStatusCode.InternalServerError, "Unable to process the request due to an error");
-            }
-            return Request.CreateResponse<PublishResult>(HttpStatusCode.Created, result);
+            return ErrorHandler.ExecuteCreate<PublishResult>(Request, () => {
+                return publish.Publish(value);
+            });
         }
     }
 }
