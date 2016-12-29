@@ -1,5 +1,5 @@
 ﻿using api.core.Models;
-using api.Provider;
+using api.core.Provider;
 using api.Security;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;

@@ -1,11 +1,6 @@
-﻿using api.Provider;
-using api.Security;
+﻿using api.core.Provider;
+using api.core.Security;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace api
 {

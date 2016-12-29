@@ -1,5 +1,6 @@
-﻿using api.core.Models;
-using api.Provider;
+﻿using api.core;
+using api.core.Models;
+using api.core.Provider;
 using api.Security;
 using Swashbuckle.Swagger.Annotations;
 using System;
