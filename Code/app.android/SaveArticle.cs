@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using app.android.Models;
 using RestSharp;
+using System.Net;
 
 namespace app.android
 {
@@ -33,9 +34,14 @@ namespace app.android
         private void PublishBtn_Click(object sender, EventArgs e)
         {
             var wait = this.GetProcessDialog("Processing", "Please wait while we process the request...");
-            PostData();
+            var result = PostData();
             wait.Dismiss();
-            Toast.MakeText(this, "PUBLISHED", ToastLength.Long).Show();
+            if (!result.Item1)
+            {
+                this.ShowDialogOk("Error", result.Item2);
+                return;
+            }
+            Toast.MakeText(this, result.Item2 ToastLength.Long).Show();
             GoToMain();
         }
 
@@ -45,7 +51,7 @@ namespace app.android
             StartActivity(intent);
         }
 
-        private void PostData()
+        private Tuple<bool, string> PostData()
         {
             var payload = GetModel().ToJson();
             var token = this.GetToken();
@@ -55,6 +61,13 @@ namespace app.android
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", payload, ParameterType.RequestBody);
             var response = client.Execute(request);
+            return ParseResponse(response);
+        }
+
+        private Tuple<bool, string> ParseResponse(IRestResponse res)
+        {
+            if (res.StatusCode != HttpStatusCode.Created) return new Tuple<bool, string>(false, "Unable to process the request");
+            return new Tuple<bool, string>(true, "The content has been processed");
         }
 
         private ArticlePublish GetModel()

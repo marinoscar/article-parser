@@ -40,5 +40,17 @@ namespace app.android
             return dialog;
         }
 
+        public static void ShowDialogOk(this Activity ac, string title, string content)
+        {
+            var alert = new AlertDialog.Builder(ac).Create();
+            alert.SetTitle(title);
+            alert.SetMessage(content);
+            alert.SetButton("OK", (senderAlert, args) => {
+                alert.Dismiss();
+            });
+            alert.Show();
+
+        }
+
     }
 }
