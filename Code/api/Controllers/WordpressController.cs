@@ -19,8 +19,9 @@ namespace api.Controllers
         public HttpResponseMessage Post(WordpressOption value)
         {
             var wpManager = new WordpressManager(Map.I.Container);
-            var res = wpManager.Post(value);
-            return Request.CreateResponse<string>(HttpStatusCode.Created, res);
+            return ErrorHandler.ExecuteCreate<string>(Request, () => {
+                return wpManager.Post(value);
+            });
         }
     }
 }
