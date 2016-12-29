@@ -60,8 +60,29 @@ namespace app.android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050004
+			public const int fbCheck = 2131034116;
+			
+			// aapt resource value: 0x7f050006
+			public const int linkedInChk = 2131034118;
+			
+			// aapt resource value: 0x7f050007
+			public const int publishBtn = 2131034119;
+			
 			// aapt resource value: 0x7f050000
-			public const int MyButton = 2131034112;
+			public const int saveContent = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int textView1 = 2131034113;
+			
+			// aapt resource value: 0x7f050005
+			public const int twitterChk = 2131034117;
+			
+			// aapt resource value: 0x7f050002
+			public const int urlTxt = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int wpChk = 2131034115;
 			
 			static Id()
 			{
@@ -78,6 +99,9 @@ namespace app.android
 			
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int SaveArticle = 2130903041;
 			
 			static Layout()
 			{
@@ -97,6 +121,30 @@ namespace app.android
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040006
+			public const int SaveArticleFB = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int SaveArticleLI = 2130968583;
+			
+			// aapt resource value: 0x7f040002
+			public const int SaveArticleScreen = 2130968578;
+			
+			// aapt resource value: 0x7f040009
+			public const int SaveArticleStore = 2130968585;
+			
+			// aapt resource value: 0x7f040008
+			public const int SaveArticleTW = 2130968584;
+			
+			// aapt resource value: 0x7f040003
+			public const int SaveArticleTitle = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int SaveArticleUrlTxt = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int SaveArticleWP = 2130968581;
 			
 			static String()
 			{

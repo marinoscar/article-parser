@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">app.android</string>
+  <string name="Hello">Save Article</string>
+  <string name="ApplicationName">Knowlege App</string>
+  <string name="SaveArticleScreen">Store Article</string>
+  <string name="SaveArticleTitle">Store the knowledge of a selected article</string>
+  <string name="SaveArticleUrlTxt">Article URL</string>
+  <string name="SaveArticleWP">Publish in Wordpress</string>
+  <string name="SaveArticleFB">Publish in Facebook</string>
+  <string name="SaveArticleLI">Publish in Linked In</string>
+  <string name="SaveArticleTW">Publish in Twitter</string>
+  <string name="SaveArticleStore">Store KNOWLEDGE!</string>
 </resources>

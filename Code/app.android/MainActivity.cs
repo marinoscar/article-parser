@@ -8,11 +8,9 @@ using Android.OS;
 
 namespace app.android
 {
-    [Activity(Label = "app.android", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -20,11 +18,19 @@ namespace app.android
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
+            SetupEvents();
+        }
 
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+        private void SetupEvents()
+        {
+            var saveArticleBtn = FindViewById<Button>(Resource.Id.saveContent);
+            saveArticleBtn.Click += SaveArticleBtn_Click;
+        }
+
+        private void SaveArticleBtn_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(SaveArticle));
+            StartActivity(intent);
         }
     }
 }
