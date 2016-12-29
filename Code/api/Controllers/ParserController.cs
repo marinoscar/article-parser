@@ -18,10 +18,12 @@ namespace api.Controllers
         [SwaggerOperation("Get")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public ParserResult Get(string url)
+        public HttpResponseMessage Get(string url)
         {
+            var result = default(ParserResult);
             var parser = new Parser(Map.I.Container);
-            return parser.ParseFromUrl(url);
+            result = parser.ParseFromUrl(url);
+            return Request.CreateResponse<ParserResult>(HttpStatusCode.Created, result);
         }
 
         [SwaggerOperation("Persist")]
@@ -29,7 +31,14 @@ namespace api.Controllers
         public HttpResponseMessage Post(ParserResult value)
         {
             var parser = new Parser(Map.I.Container);
-            parser.Persist(value);
+            try
+            {
+                parser.Persist(value);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse((HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
+            }
             return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
         }
 
@@ -39,10 +48,18 @@ namespace api.Controllers
         [ActionName("Create")]
         public HttpResponseMessage Create(ParseOptions value)
         {
+            var result = default(ParserResult);
             var parser = new Parser(Map.I.Container);
-            var result = parser.Parse(value);
-            parser.Persist(result);
-            return Request.CreateResponse<string>(HttpStatusCode.Created, JsonConvert.SerializeObject(result));
+            try
+            {
+                result = parser.Parse(value);
+                parser.Persist(result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse((HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
+            }
+            return Request.CreateResponse<ParserResult>(HttpStatusCode.Created, result);
         }
     }
 }
