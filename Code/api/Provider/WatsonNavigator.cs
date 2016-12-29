@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;

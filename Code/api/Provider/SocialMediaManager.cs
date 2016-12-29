@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using MongoDB.Driver;
 using StructureMap;
 using System;

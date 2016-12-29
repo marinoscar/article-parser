@@ -175,16 +175,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Map.cs" />
-    <Compile Include="Models\IIdModel.cs" />
-    <Compile Include="Models\Keyword.cs" />
-    <Compile Include="Models\ParseOptions.cs" />
-    <Compile Include="Models\ParserResult.cs" />
-    <Compile Include="Models\PublishOptions.cs" />
-    <Compile Include="Models\PublishResult.cs" />
-    <Compile Include="Models\TaxonomyItem.cs" />
-    <Compile Include="Models\WatsonResult.cs" />
-    <Compile Include="Models\WordpressConfig.cs" />
-    <Compile Include="Models\WordpressOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ContentRepository.cs" />
     <Compile Include="Provider\MongoDataContext.cs" />
@@ -215,7 +205,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\api.core\api.core.csproj">
+      <Project>{df68152b-bf09-4381-84e9-b6a4f6c932ae}</Project>
+      <Name>api.core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

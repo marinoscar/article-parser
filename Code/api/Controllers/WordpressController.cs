@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using api.Provider;
 using api.Security;
 using Swashbuckle.Swagger.Annotations;

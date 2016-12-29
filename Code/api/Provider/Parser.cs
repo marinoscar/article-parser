@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
-using api.Models;
+using api.core.Models;
 using api.Security;
 using NReadability;
 using StructureMap;

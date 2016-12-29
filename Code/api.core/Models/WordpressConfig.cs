@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace api.Models
+namespace api.core.Models
 {
     public class WordpressConfig
     {

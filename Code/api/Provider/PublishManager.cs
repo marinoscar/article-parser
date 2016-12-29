@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using StructureMap;
 using System;
 using System.Collections.Generic;

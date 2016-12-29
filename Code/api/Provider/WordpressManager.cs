@@ -1,4 +1,4 @@
-﻿using api.Models;
+﻿using api.core.Models;
 using api.Security;
 using POSSIBLE.WordPress.XmlRpcClient;
 using POSSIBLE.WordPress.XmlRpcClient.Models;
