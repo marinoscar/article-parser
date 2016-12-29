@@ -20,7 +20,7 @@ namespace api
             }
             catch (Exception ex)
             {
-                response = request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
+                response = request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.ToString()));
             }
             return response;
         }
