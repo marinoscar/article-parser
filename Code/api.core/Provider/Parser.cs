@@ -1,7 +1,7 @@
 ﻿using AngleSharp.Dom.Html;
 using AngleSharp.Parser.Html;
 using api.core.Models;
-using api.Security;
+using api.core.Security;
 using NReadability;
 using StructureMap;
 using System;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace api.Provider
+namespace api.core.Provider
 {
     public class Parser
     {

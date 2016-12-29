@@ -1,5 +1,5 @@
 ﻿using api.core.Models;
-using api.Security;
+using api.core.Security;
 using POSSIBLE.WordPress.XmlRpcClient;
 using POSSIBLE.WordPress.XmlRpcClient.Models;
 using StructureMap;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace api.Provider
+namespace api.core.Provider
 {
     public class WordpressManager
     {

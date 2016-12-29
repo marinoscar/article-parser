@@ -1,4 +1,4 @@
-﻿namespace api.Security
+﻿namespace api.core.Security
 {
     public interface IAccountManager
     {

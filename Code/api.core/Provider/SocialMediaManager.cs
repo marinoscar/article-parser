@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace api.Provider
+namespace api.core.Provider
 {
     public class SocialMediaManager
     {

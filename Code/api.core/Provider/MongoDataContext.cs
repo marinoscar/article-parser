@@ -8,7 +8,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace api.Provider
+namespace api.core.Provider
 {
     public interface IDataContext
     {

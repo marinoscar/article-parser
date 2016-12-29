@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace api.Security
+namespace api.core.Security
 {
     public static class TokenManager
     {
