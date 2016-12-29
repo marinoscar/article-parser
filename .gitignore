@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 
 *private.config
+*private.json
