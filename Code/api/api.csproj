@@ -185,6 +185,7 @@
     <Content Include="packages.config" />
     <Content Include="private.config" />
     <None Include="Properties\PublishProfiles\article-parser - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\k-app - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
