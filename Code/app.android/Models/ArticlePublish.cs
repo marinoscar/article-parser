@@ -24,24 +24,28 @@ namespace app.android.Models
         public string ToJson()
         {
             var template = @"
-{
-	""Parse"":{
+[
+	""Parse"":[
 		""Url"": ""{0}""
-	},
-	""Article"":{
+	],
+	""Article"":[
 		""PostStatus"": ""{1}""
-	},
-	""SocialMedia"":{
+	],
+	""SocialMedia"":[
 		""DoFacebook"": {2},
 		""DoTwitter"": {3},
 		""DoLinkedIn"": {4},
 		""Buffer"": {5}
-	}
-}
+	]
+]
 ";
             return string.Format(template, Url,
                 Wordpress ? "publish" : "draft",
-                Facebook, Twitter, LinkedIn, Buffer);
+                Facebook.ToString().ToLowerInvariant(), 
+                Twitter.ToString().ToLowerInvariant(), 
+                LinkedIn.ToString().ToLowerInvariant(),
+                Buffer.ToString().ToLowerInvariant()
+                ).Replace("[", "{").Replace("]", "}");
         }
     }
 }

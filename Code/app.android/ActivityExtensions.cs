@@ -30,6 +30,15 @@ namespace app.android
             return null;
         }
 
-        
+        public static ProgressDialog GetProcessDialog(this Activity ac, string title, string message)
+        {
+            var dialog = new ProgressDialog(ac);
+            dialog.SetTitle(title);
+            dialog.SetMessage(message);
+            dialog.SetCancelable(false);
+            dialog.Show();
+            return dialog;
+        }
+
     }
 }

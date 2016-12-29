@@ -60,6 +60,9 @@ namespace app.android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050002
+			public const int editText1 = 2131034114;
+			
 			// aapt resource value: 0x7f050004
 			public const int fbCheck = 2131034116;
 			
@@ -77,9 +80,6 @@ namespace app.android
 			
 			// aapt resource value: 0x7f050005
 			public const int twitterChk = 2131034117;
-			
-			// aapt resource value: 0x7f050002
-			public const int urlTxt = 2131034114;
 			
 			// aapt resource value: 0x7f050003
 			public const int wpChk = 2131034115;

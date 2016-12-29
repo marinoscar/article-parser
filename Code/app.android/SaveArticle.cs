@@ -21,7 +21,7 @@ namespace app.android
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.SaveArticle);
-            
+            SetupEvents();
         }
 
         private void SetupEvents()
@@ -32,8 +32,10 @@ namespace app.android
 
         private void PublishBtn_Click(object sender, EventArgs e)
         {
+            var wait = this.GetProcessDialog("Processing", "Please wait while we process the request...");
             PostData();
-            Toast.MakeText(this, "PUBLISHED", ToastLength.Short).Show();
+            wait.Dismiss();
+            Toast.MakeText(this, "PUBLISHED", ToastLength.Long).Show();
             GoToMain();
         }
 
@@ -46,9 +48,10 @@ namespace app.android
         private void PostData()
         {
             var payload = GetModel().ToJson();
+            var token = this.GetToken();
             var client = new RestClient("http://k-app.azurewebsites.net/api/publish/persist");
             var request = new RestRequest(Method.POST);
-            request.AddHeader("token", this.GetToken());
+            request.AddHeader("token", token);
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", payload, ParameterType.RequestBody);
             var response = client.Execute(request);
@@ -56,9 +59,10 @@ namespace app.android
 
         private ArticlePublish GetModel()
         {
+            var urlTxt = FindViewById<EditText>(Resource.Id.editText1);
             var result = new ArticlePublish()
             {
-                Url = FindViewById<EditText>(Resource.Id.urlTxt).Text,
+                Url = urlTxt.Text,
                 Wordpress = FindViewById<CheckBox>(Resource.Id.wpChk).Checked,
                 Facebook = FindViewById<CheckBox>(Resource.Id.fbCheck).Checked,
                 Twitter = FindViewById<CheckBox>(Resource.Id.twitterChk).Checked,
