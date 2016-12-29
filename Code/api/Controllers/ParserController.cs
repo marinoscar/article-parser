@@ -37,7 +37,7 @@ namespace api.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse((HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
             }
             return Request.CreateResponse<string>(HttpStatusCode.Created, value.Id);
         }
@@ -57,7 +57,7 @@ namespace api.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse((HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("Unable to process request\n\n{0}", ex.Message));
             }
             return Request.CreateResponse<ParserResult>(HttpStatusCode.Created, result);
         }
