@@ -13,7 +13,7 @@ namespace api.core.Provider
     {
         public ContentRepository(IContainer container)
         {
-            DataContext = container.GetInstance<IDataContext>("kapp");
+            DataContext = container.GetInstance<IDataContext>();
         }
 
         public IDataContext DataContext { get; set; }

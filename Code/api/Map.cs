@@ -10,8 +10,9 @@ namespace api
         private IContainer _container;
         public Map()
         {
-            _container = new Container(i => {
-                i.For<IDataContext>().Use<MongoDataContext>();
+            _container = new Container(i =>
+            {
+                i.For<IDataContext>().Use<MongoDataContext>().Ctor<string>().Is("kapp");
                 i.For<IAccountManager>().Use<AccountManager>();
             });
 
