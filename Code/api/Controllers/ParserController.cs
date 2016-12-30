@@ -34,7 +34,7 @@ namespace api.Controllers
         public HttpResponseMessage GetArticles()
         {
             var parser = new Parser(Map.I.Container);
-            return ErrorHandler.ExecuteCreate<IEnumerable<ContentDto>>(Request, () => {
+            return ErrorHandler.Execute<IEnumerable<ContentDto>>(Request, HttpStatusCode.OK, () => {
                 return parser.GetArticles();
             });
         }
