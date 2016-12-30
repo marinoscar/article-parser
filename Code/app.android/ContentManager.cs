@@ -28,13 +28,6 @@ namespace app.android
         public Tuple<bool, string> PostData(ArticlePublish model)
         {
             var payload = model.ToJson();
-            //var token = Activity.GetToken();
-            //var client = new RestClient(string.Format("{0}/publish/persist", GetRootUrl()));
-            //var request = new RestRequest(Method.POST);
-            //request.AddHeader("token", token);
-            //request.AddHeader("content-type", "application/json");
-            //request.AddParameter("application/json", payload, ParameterType.RequestBody);
-            //var response = client.Execute(request);
             var response = GetResponse("publish/persist", Method.POST, payload);
             return ParseResponse(response);
         }
@@ -63,7 +56,7 @@ namespace app.android
         private Tuple<bool, string> ParseResponse(IRestResponse res)
         {
             if (res.StatusCode != HttpStatusCode.Created) return new Tuple<bool, string>(false, "There was an error processing your request. Please make sure the url is correct and try again");
-            return new Tuple<bool, string>(true, "The content has been stored and processed");
+            return new Tuple<bool, string>(true, "Thanks for sharing!");
         }
 
         private string GetRootUrl()

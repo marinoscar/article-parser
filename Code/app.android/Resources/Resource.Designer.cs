@@ -75,14 +75,17 @@ namespace app.android
 			// aapt resource value: 0x7f050006
 			public const int editText1 = 2131034118;
 			
-			// aapt resource value: 0x7f050008
-			public const int fbCheck = 2131034120;
-			
-			// aapt resource value: 0x7f05000a
-			public const int linkedInChk = 2131034122;
+			// aapt resource value: 0x7f050009
+			public const int fbCheck = 2131034121;
 			
 			// aapt resource value: 0x7f05000b
-			public const int publishBtn = 2131034123;
+			public const int linkedInChk = 2131034123;
+			
+			// aapt resource value: 0x7f050007
+			public const int messageTxt = 2131034119;
+			
+			// aapt resource value: 0x7f05000c
+			public const int publishBtn = 2131034124;
 			
 			// aapt resource value: 0x7f050003
 			public const int saveContent = 2131034115;
@@ -90,14 +93,14 @@ namespace app.android
 			// aapt resource value: 0x7f050005
 			public const int textView1 = 2131034117;
 			
-			// aapt resource value: 0x7f050009
-			public const int twitterChk = 2131034121;
+			// aapt resource value: 0x7f05000a
+			public const int twitterChk = 2131034122;
 			
 			// aapt resource value: 0x7f050004
 			public const int viewArticles = 2131034116;
 			
-			// aapt resource value: 0x7f050007
-			public const int wpChk = 2131034119;
+			// aapt resource value: 0x7f050008
+			public const int wpChk = 2131034120;
 			
 			static Id()
 			{

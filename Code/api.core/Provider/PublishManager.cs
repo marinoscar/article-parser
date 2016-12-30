@@ -24,6 +24,12 @@ namespace api.core.Provider
         {
             var result = new PublishResult();
             if (options.Parse == null) return result;
+            if(options.Article != null && options.Article.PostStatus == "no" && options.SocialMedia !=null)
+            {
+                DoSocial(options.SocialMedia);
+                result.DidPublishInSocial = true;
+                return result;
+            }
             var parseResult = DoParse(options.Parse);
             result.ParseId = parseResult.Id;
             if (options.Article == null) return result;

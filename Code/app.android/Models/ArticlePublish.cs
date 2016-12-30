@@ -20,6 +20,7 @@ namespace app.android.Models
         public bool Twitter { get; set; }
         public bool LinkedIn { get; set; }
         public bool Buffer { get; set; }
+        public string Text { get; set; }
 
         public string ToJson()
         {
@@ -35,16 +36,18 @@ namespace app.android.Models
 		""DoFacebook"": {2},
 		""DoTwitter"": {3},
 		""DoLinkedIn"": {4},
-		""Buffer"": {5}
+		""Buffer"": {5},
+        ""Text"":""{6}""
 	]
 ]
 ";
             return string.Format(template, Url,
-                Wordpress ? "publish" : "draft",
+                Wordpress ? "publish" : "no",
                 Facebook.ToString().ToLowerInvariant(), 
                 Twitter.ToString().ToLowerInvariant(), 
                 LinkedIn.ToString().ToLowerInvariant(),
-                Buffer.ToString().ToLowerInvariant()
+                Buffer.ToString().ToLowerInvariant(),
+                Text
                 ).Replace("[", "{").Replace("]", "}");
         }
     }

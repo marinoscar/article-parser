@@ -73,7 +73,8 @@ namespace app.android
                 Wordpress = FindViewById<CheckBox>(Resource.Id.wpChk).Checked,
                 Facebook = FindViewById<CheckBox>(Resource.Id.fbCheck).Checked,
                 Twitter = FindViewById<CheckBox>(Resource.Id.twitterChk).Checked,
-                LinkedIn = FindViewById<CheckBox>(Resource.Id.linkedInChk).Checked
+                LinkedIn = FindViewById<CheckBox>(Resource.Id.linkedInChk).Checked,
+                Text = FindViewById<TextView>(Resource.Id.messageTxt).Text
             };
             return result;
         }
