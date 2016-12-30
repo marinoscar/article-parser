@@ -32,7 +32,7 @@ namespace api.core.Provider
         public IEnumerable<ContentDto> GetArticles()
         {
             var filter = Builders<ParserResult>.Filter.Empty;
-            var proj = Builders<ParserResult>.Projection.Expression<ContentDto>(x => new ContentDto { Id = x.Id, Title = x.Title, WordpressId = x.WordpressId, UtcUpdatedOn = x.UtcUpdatedOn });
+            var proj = Builders<ParserResult>.Projection.Expression<ContentDto>(x => new ContentDto { Id = x.Id, Title = x.Title, WordpressId = x.WordpressId, UtcUpdatedOn = x.UtcUpdatedOn, Excerpt = x.Excerpt });
             return DataContext.Select<ParserResult, ContentDto>("contents", filter, proj);
         }
 
