@@ -45,13 +45,13 @@ namespace app.android
             })).Start();
         }
 
-        public static void ShowDialogOk(this Activity ac, string title, string content)
+        public static void ShowDialogOk(this Activity ac, Action onOk, string title, string content)
         {
             var alert = new AlertDialog.Builder(ac).Create();
             alert.SetTitle(title);
             alert.SetMessage(content);
             alert.SetButton("OK", (senderAlert, args) => {
-                alert.Dismiss();
+                onOk();
             });
             alert.Show();
 

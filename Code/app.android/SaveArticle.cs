@@ -35,18 +35,19 @@ namespace app.android
 
         private void PublishBtn_Click(object sender, EventArgs e)
         {
+            var result = default(Tuple<bool, string>);
             this.ExecuteLongTask(() =>
             {
-                var result = PostData();
-                if (!result.Item1)
-                {
-                    this.ShowDialogOk("Error", result.Item2);
-                    return;
-                }
+                result = PostData();
             }, () =>
             {
-                Toast.MakeText(this, "Article has been stored", ToastLength.Long).Show();
-                GoToMain();
+                if (!result.Item1)
+                    this.ShowDialogOk(GoToMain, "Error", result.Item2);
+                else
+                {
+                    Toast.MakeText(this, result.Item2, ToastLength.Long).Show();
+                    GoToMain();
+                }
             }, "Procesing", "Please wait while we complete your request");
         }
 
@@ -71,8 +72,8 @@ namespace app.android
 
         private Tuple<bool, string> ParseResponse(IRestResponse res)
         {
-            if (res.StatusCode != HttpStatusCode.Created) return new Tuple<bool, string>(false, "Unable to process the request");
-            return new Tuple<bool, string>(true, "The content has been processed");
+            if (res.StatusCode != HttpStatusCode.Created) return new Tuple<bool, string>(false, "There was an error processing your request. Please make sure the url is correct and try again");
+            return new Tuple<bool, string>(true, "The content has been stored and processed");
         }
 
         private ArticlePublish GetModel()
