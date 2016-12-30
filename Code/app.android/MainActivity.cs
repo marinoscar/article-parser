@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace app.android
 {
-    [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/logo72x72")]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)

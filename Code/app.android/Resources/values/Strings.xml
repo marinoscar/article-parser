@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="Hello">Save Article</string>
-  <string name="ApplicationName">Knowlege App</string>
+  <string name="ApplicationName">Knowlege Box</string>
   <string name="SaveArticleScreen">Store Article</string>
   <string name="SaveArticleTitle">Store the knowledge of a selected article</string>
   <string name="SaveArticleUrlTxt">Article URL</string>
