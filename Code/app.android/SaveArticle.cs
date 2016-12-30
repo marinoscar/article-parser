@@ -59,21 +59,9 @@ namespace app.android
 
         private Tuple<bool, string> PostData()
         {
-            var payload = GetModel().ToJson();
-            var token = this.GetToken();
-            var client = new RestClient("http://k-app.azurewebsites.net/api/publish/persist");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("token", token);
-            request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", payload, ParameterType.RequestBody);
-            var response = client.Execute(request);
-            return ParseResponse(response);
-        }
-
-        private Tuple<bool, string> ParseResponse(IRestResponse res)
-        {
-            if (res.StatusCode != HttpStatusCode.Created) return new Tuple<bool, string>(false, "There was an error processing your request. Please make sure the url is correct and try again");
-            return new Tuple<bool, string>(true, "The content has been stored and processed");
+            var model = GetModel();
+            var manager = new ContentManager(this);
+            return manager.PostData(model);
         }
 
         private ArticlePublish GetModel()

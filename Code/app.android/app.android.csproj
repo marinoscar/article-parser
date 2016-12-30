@@ -57,10 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleList.cs" />
+    <Compile Include="ContentManager.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\ArticlePublish.cs" />
     <Compile Include="ActivityExtensions.cs" />
-    <Compile Include="RecentArticles.cs" />
+    <Compile Include="Models\ContentDto.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveArticle.cs" />
@@ -71,6 +73,9 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\SaveArticle.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ArticleList.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

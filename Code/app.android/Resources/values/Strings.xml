@@ -10,4 +10,5 @@
   <string name="SaveArticleLI">Publish in Linked In</string>
   <string name="SaveArticleTW">Publish in Twitter</string>
   <string name="SaveArticleStore">Store KNOWLEDGE!</string>
+  <string name="ViewArticleButton">View Article List</string>
 </resources>

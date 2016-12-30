@@ -25,6 +25,14 @@ namespace app.android
         {
             var saveArticleBtn = FindViewById<Button>(Resource.Id.saveContent);
             saveArticleBtn.Click += SaveArticleBtn_Click;
+            var articleListBtn = FindViewById<Button>(Resource.Id.viewArticles);
+            articleListBtn.Click += ArticleListBtn_Click;
+        }
+
+        private void ArticleListBtn_Click(object sender, EventArgs e)
+        {
+            var intent = new Intent(this, typeof(ArticleList));
+            StartActivity(intent);
         }
 
         private void SaveArticleBtn_Click(object sender, EventArgs e)

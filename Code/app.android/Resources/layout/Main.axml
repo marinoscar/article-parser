@@ -10,4 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="92.0dp"
         android:id="@+id/saveContent" />
+    <Button
+        android:text="@string/ViewArticleButton"
+        android:layout_width="match_parent"
+        android:layout_height="92.0dp"
+        android:id="@+id/viewArticles" />
 </LinearLayout>
