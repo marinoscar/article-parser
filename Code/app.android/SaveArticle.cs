@@ -13,6 +13,7 @@ using app.android.Models;
 using RestSharp;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace app.android
 {
@@ -35,22 +36,19 @@ namespace app.android
         private void PublishBtn_Click(object sender, EventArgs e)
         {
             var result = default(Tuple<bool, string>);
-            var wait = new ProgressDialog(this);
-            wait.SetProgressStyle(ProgressDialogStyle.Spinner);
-            wait.SetTitle("Processing");
-            wait.SetMessage("Please wait while the information is stored...");
-            wait.SetCancelable(false);
-            wait.Show();
+            var wait = ProgressDialog.Show(this, "Procesing", "Please wait while we complete your request", true, false);
             new Thread(new ThreadStart(delegate
             {
+                result = PostData();
+                if (!result.Item1)
+                {
+                    this.ShowDialogOk("Error", result.Item2);
+                    wait.Dismiss();
+                    return;
+                }
                 RunOnUiThread(() =>
                 {
-                    result = PostData();
-                    if (!result.Item1)
-                    {
-                        this.ShowDialogOk("Error", result.Item2);
-                        return;
-                    }
+                    wait.Dismiss();
                     Toast.MakeText(this, result.Item2, ToastLength.Long).Show();
                     GoToMain();
                 });
