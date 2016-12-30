@@ -13,20 +13,35 @@ using app.android.Models;
 
 namespace app.android
 {
-    [Activity(Label = "ArticleList")]
+    [Activity(Label = "@string/ViewArticleTitle")]
     public class ArticleList : Activity
     {
+        private List<ContentDto> _items;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ArticleList);
             var manager = new ContentManager(this);
             var list = FindViewById<ListView>(Resource.Id.artcileListView);
-            var items = manager.GetArticles().ToList();
-            if (items.Count <= 0)
-                items.Add(new ContentDto() { Title = "NO ARTICLES" });
-            var adapter = new ArticleAdapter(this, items);
-            list.Adapter = adapter;
+            this.ExecuteLongTask(() => {
+                _items = manager.GetArticles().ToList();
+            }, () => {
+                if (_items.Count <= 0)
+                    _items.Add(new ContentDto() { Title = "NO ARTICLES" });
+                var adapter = new ArticleAdapter(this, _items);
+                list.Adapter = adapter;
+                list.ItemClick += List_ItemClick;
+            },
+                "Processing", "Please wait while we get the data for you!");
+        }
+        private void List_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var item = _items[e.Position];
+            if (item == null) return;
+            var uri = Android.Net.Uri.Parse(string.Format("http://blog.marin.cr/?p={0}", item.WordpressId));
+            var intent = new Intent(Intent.ActionView, uri);
+            StartActivity(intent);
 
         }
     }

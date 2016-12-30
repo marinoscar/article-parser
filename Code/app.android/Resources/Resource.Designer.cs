@@ -143,32 +143,38 @@ namespace app.android
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
 			
-			// aapt resource value: 0x7f040006
-			public const int SaveArticleFB = 2130968582;
-			
 			// aapt resource value: 0x7f040007
-			public const int SaveArticleLI = 2130968583;
+			public const int SaveArticleFB = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int SaveArticleLI = 2130968584;
 			
 			// aapt resource value: 0x7f040002
 			public const int SaveArticleScreen = 2130968578;
 			
-			// aapt resource value: 0x7f040009
-			public const int SaveArticleStore = 2130968585;
+			// aapt resource value: 0x7f04000a
+			public const int SaveArticleStore = 2130968586;
 			
-			// aapt resource value: 0x7f040008
-			public const int SaveArticleTW = 2130968584;
+			// aapt resource value: 0x7f040009
+			public const int SaveArticleTW = 2130968585;
 			
 			// aapt resource value: 0x7f040003
 			public const int SaveArticleTitle = 2130968579;
 			
+			// aapt resource value: 0x7f040005
+			public const int SaveArticleTxt = 2130968581;
+			
 			// aapt resource value: 0x7f040004
 			public const int SaveArticleUrlTxt = 2130968580;
 			
-			// aapt resource value: 0x7f040005
-			public const int SaveArticleWP = 2130968581;
+			// aapt resource value: 0x7f040006
+			public const int SaveArticleWP = 2130968582;
 			
-			// aapt resource value: 0x7f04000a
-			public const int ViewArticleButton = 2130968586;
+			// aapt resource value: 0x7f04000b
+			public const int ViewArticleButton = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int ViewArticleTitle = 2130968588;
 			
 			static String()
 			{

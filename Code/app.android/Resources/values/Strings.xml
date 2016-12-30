@@ -3,12 +3,14 @@
   <string name="Hello">Save Article</string>
   <string name="ApplicationName">Knowlege Box</string>
   <string name="SaveArticleScreen">Store Article</string>
-  <string name="SaveArticleTitle">Store the knowledge of a selected article</string>
+  <string name="SaveArticleTitle">Share Knowledge!</string>
   <string name="SaveArticleUrlTxt">Article URL</string>
+  <string name="SaveArticleTxt">Enter message text</string>
   <string name="SaveArticleWP">Publish in Wordpress</string>
   <string name="SaveArticleFB">Publish in Facebook</string>
   <string name="SaveArticleLI">Publish in Linked In</string>
   <string name="SaveArticleTW">Publish in Twitter</string>
   <string name="SaveArticleStore">Store KNOWLEDGE!</string>
   <string name="ViewArticleButton">View Article List</string>
+  <string name="ViewArticleTitle">Tap item to view in Browser</string>
 </resources>
