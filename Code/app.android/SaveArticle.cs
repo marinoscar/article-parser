@@ -35,24 +35,19 @@ namespace app.android
 
         private void PublishBtn_Click(object sender, EventArgs e)
         {
-            var result = default(Tuple<bool, string>);
-            var wait = ProgressDialog.Show(this, "Procesing", "Please wait while we complete your request", true, false);
-            new Thread(new ThreadStart(delegate
+            this.ExecuteLongTask(() =>
             {
-                result = PostData();
+                var result = PostData();
                 if (!result.Item1)
                 {
                     this.ShowDialogOk("Error", result.Item2);
-                    wait.Dismiss();
                     return;
                 }
-                RunOnUiThread(() =>
-                {
-                    wait.Dismiss();
-                    Toast.MakeText(this, result.Item2, ToastLength.Long).Show();
-                    GoToMain();
-                });
-            })).Start();
+            }, () =>
+            {
+                Toast.MakeText(this, "Article has been stored", ToastLength.Long).Show();
+                GoToMain();
+            }, "Procesing", "Please wait while we complete your request");
         }
 
         private void GoToMain()

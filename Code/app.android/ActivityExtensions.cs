@@ -12,6 +12,7 @@ using Android.Widget;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace app.android
 {
@@ -30,13 +31,18 @@ namespace app.android
             return null;
         }
 
-        public static ProgressDialog GetProcessDialog(this Activity ac, string title, string message)
+        public static void ExecuteLongTask(this Activity ac, Action onExecute, Action onDone, string title, string message)
         {
-            var dialog = new ProgressDialog(ac);
-            dialog.SetTitle(title);
-            dialog.SetMessage(message);
-            dialog.SetCancelable(false);
-            return dialog;
+            var wait = ProgressDialog.Show(ac, title, message, true, false);
+            new Thread(new ThreadStart(delegate
+            {
+                onExecute();
+                ac.RunOnUiThread(() =>
+                {
+                    wait.Dismiss();
+                    onDone();
+                });
+            })).Start();
         }
 
         public static void ShowDialogOk(this Activity ac, string title, string content)
