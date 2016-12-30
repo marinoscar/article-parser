@@ -22,6 +22,8 @@ namespace api.core.Models
         public string Content { get; set; }
         public string ContentHash { get; set; }
         public string FormattedContent { get; set; }
+        public string RawText { get; set; }
+        public string Excerpt { get; set; }
         public string Author { get; set; }
         public string DatePublish { get; set; }
         public string ImageUrl { get; set; }

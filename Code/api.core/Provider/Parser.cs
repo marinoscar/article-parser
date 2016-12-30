@@ -52,6 +52,7 @@ namespace api.core.Provider
             var keywords = watson.GetKeywords(options.Url);
             var categories = watson.GetTaxonomy(options.Url);
             var imgUrl = ExtractImage(document);
+            var rawText = GetRawText(content);
             return new ParserResult()
             {
                 UserId = AccountManager.GetCurrent().Id,
@@ -60,13 +61,35 @@ namespace api.core.Provider
                 Content = content,
                 ContentHash = HashManager.GetHashString(content),
                 FormattedContent = ProvideFormat(content, result.ExtractedTitle, options, imgUrl),
+                RawText = rawText,
                 Url = options.Url,
+                Excerpt = GetExcerpt(rawText, result.ExtractedTitle),
                 ImageUrl = imgUrl,
                 Author = ExtractAuthor(result.ExtractedContent),
                 Keywords = keywords.Items.Where(i => i.Relevance > 0.85).OrderByDescending(i => i.Relevance).Select(i => StringUtils.PretifyWords(i.Text)).ToArray(),
                 Categories = categories.Items.Select(i => StringUtils.PretifyWords(i)).Take(10),
                 Images = ExtractAllImages(document)
             };
+        }
+
+
+        private string GetExcerpt(string content, string title)
+        {
+            var words = GetWords(content.Replace(title, "")).Take(50);
+            return string.Join(" ", words);
+
+        }
+
+        private string GetRawText(string content)
+        {
+            var result = Regex.Replace(content, "<.*?>", " ");
+            var words = GetWords(result);
+            return string.Join(" ", words);
+        }
+
+        private IEnumerable<string> GetWords(string content)
+        {
+            return Regex.Matches(content, @"\w(?<!\d)[\w'-]*").Cast<Match>().Where(i => i.Success).Select(i => i.Value).ToArray();
         }
 
         private string ProvideFormat(string content, string title, ParseOptions options, string imgUrl)

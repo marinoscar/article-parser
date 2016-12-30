@@ -48,7 +48,9 @@ namespace api.core.Provider
 
         private WatsonResult<T> LoadResponse<T>(JToken json, Func<JToken, List<T>> itemLoad)
         {
-            var result = new WatsonResult<T>() {
+            var result = default(WatsonResult<T>);
+            if (json == null) return result;
+            result = new WatsonResult<T>() {
                 Status = Convert.ToString(json["status"]),
                 Language = Convert.ToString(json["language"]),
                 Items = itemLoad(json)
