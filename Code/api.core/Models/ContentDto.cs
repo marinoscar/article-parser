@@ -11,6 +11,7 @@ namespace api.core.Models
         public string Id { get; set; }
         public string WordpressId { get; set; }
         public string Title { get; set; }
+        public string Excerpt { get; set; }
         public DateTime UtcUpdatedOn { get; set; }
     }
 }
