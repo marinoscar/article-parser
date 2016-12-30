@@ -42,20 +42,22 @@ namespace app.android
         public IEnumerable<ContentDto> GetArticles()
         {
             var response = GetResponse("parser/getarticles", Method.GET, null);
-            if (response.StatusCode != HttpStatusCode.OK) return new List<ContentDto>();
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created) return new List<ContentDto>();
             return JsonConvert.DeserializeObject<IEnumerable<ContentDto>>(response.Content);
         }
 
         private IRestResponse GetResponse(string method, Method verb, string payload)
         {
             var token = Activity.GetToken();
-            var client = new RestClient(string.Format("{0}/{1}", GetRootUrl(), method));
-            var request = new RestRequest(Method.POST);
+            var url = string.Format("{0}/{1}", GetRootUrl(), method);
+            var client = new RestClient(url);
+            var request = new RestRequest(verb);
             request.AddHeader("token", token);
             request.AddHeader("content-type", "application/json");
-            if(!string.IsNullOrWhiteSpace(payload))
+            if (!string.IsNullOrWhiteSpace(payload))
                 request.AddParameter("application/json", payload, ParameterType.RequestBody);
-            return client.Execute(request);
+            IRestResponse response = client.Execute(request);
+            return response;
         }
 
         private Tuple<bool, string> ParseResponse(IRestResponse res)
