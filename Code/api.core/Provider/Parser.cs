@@ -90,6 +90,12 @@ namespace api.core.Provider
             return document.Body.InnerHtml.Replace("<head></head>", "").Replace("<body>", "").Replace("</body>", "");
         }
 
+        public IEnumerable<ContentDto> GetArticles()
+        {
+            var contentRepo = new ContentRepository(_container);
+            return contentRepo.GetArticles().OrderByDescending(i => i.UtcUpdatedOn).ToList();
+        }
+
         public void Persist(ParserResult value)
         {
             var contentRepo = new ContentRepository(_container);

@@ -26,6 +26,19 @@ namespace api.Controllers
             });
         }
 
+        [SwaggerOperation("GetArticles")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [ActionName("GetArticles")]
+        [HttpGet]
+        public HttpResponseMessage GetArticles()
+        {
+            var parser = new Parser(Map.I.Container);
+            return ErrorHandler.ExecuteCreate<IEnumerable<ContentDto>>(Request, () => {
+                return parser.GetArticles();
+            });
+        }
+
         [SwaggerOperation("Persist")]
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post(ParserResult value)

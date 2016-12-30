@@ -29,6 +29,13 @@ namespace api.core.Provider
             return DataContext.Select<ParserResult>("contents", filter).FirstOrDefault() ;
         }
 
+        public IEnumerable<ContentDto> GetArticles()
+        {
+            var filter = Builders<ParserResult>.Filter.Empty;
+            var proj = Builders<ParserResult>.Projection.Expression<ContentDto>(x => new ContentDto { Id = x.Id, Title = x.Title, WordpressId = x.WordpressId, UtcUpdatedOn = x.UtcUpdatedOn });
+            return DataContext.Select<ParserResult, ContentDto>("contents", filter, proj);
+        }
+
         public void UpdateWpField(ParserResult item)
         {
             var update = Builders<ParserResult>.Update.Set("UtcUpdatedOn", DateTime.UtcNow).Set("WordpressId", item.WordpressId);

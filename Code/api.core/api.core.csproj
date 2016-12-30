@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FriendlyException.cs" />
+    <Compile Include="Models\ContentDto.cs" />
     <Compile Include="Models\IIdModel.cs" />
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\ParseOptions.cs" />
