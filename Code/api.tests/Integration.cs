@@ -24,13 +24,26 @@ namespace api.tests
             var options = new PublishOptions()
             {
                 Parse = new ParseOptions() { Url = "https://techcrunch.com/2016/12/28/the-price-of-bitcoin-is-creeping-back-toward-its-3-year-high-of-1000/" },
-                Article = new WordpressOption() { PostStatus = "publish" },
+                Article = new WordpressOption() { PostStatus = "draft" },
                 SocialMedia = new PublishSocialMediaOptions()
                 {
                     DoFacebook = true,
                     DoLinkedIn = true,
                     DoTwitter = true
                 }
+            };
+            var publishManager = new PublishManager(_container);
+            var result = publishManager.Publish(options);
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void DoIntegrationWithoutSocialMedia()
+        {
+            var options = new PublishOptions()
+            {
+                Parse = new ParseOptions() { Url = "https://techcrunch.com/2016/12/28/the-price-of-bitcoin-is-creeping-back-toward-its-3-year-high-of-1000/" },
+                Article = new WordpressOption() { PostStatus = "publish" },
             };
             var publishManager = new PublishManager(_container);
             var result = publishManager.Publish(options);
