@@ -30,14 +30,16 @@ namespace api.core.Provider
         public string Post(ParserResult item, WordpressOption options)
         {
             var config = WordpressConfig.Load();
+
             var result = string.Empty;
+            var post = default(Post);
             using (var wpClient = new WordPressXmlRpcClient(config.Url, config.User, config.Password))
             {
-                var post = new Post()
+                post = new Post()
                 {
                     post_author = item.Author,
                     post_content = item.FormattedContent,
-                    post_date = DateTime.Now,
+                    post_date = DateTime.Today,
                     post_title = item.Title,
                     terms = GetTerms(item),
                     custom_fields = GetCustomFields(item),
