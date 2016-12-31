@@ -37,7 +37,8 @@ namespace api.core.Provider
             result.WordpressId = parseResult.WordpressId;
             if (options.SocialMedia == null) return result;
             options.SocialMedia.Url = url;
-            options.SocialMedia.Text = parseResult.Title;
+            if(string.IsNullOrWhiteSpace(options.SocialMedia.Text))
+                options.SocialMedia.Text = parseResult.Title;
             result.DidPublishInSocial = DoSocial(options.SocialMedia);
             return result;
         }
