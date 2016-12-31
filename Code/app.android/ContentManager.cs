@@ -61,7 +61,7 @@ namespace app.android
 
         private string GetRootUrl()
         {
-            return "http://k-app.azurewebsites.net/api";
+            return "https://k-app.azurewebsites.net/api";
         }
     }
 }
