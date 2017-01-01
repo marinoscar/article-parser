@@ -14,6 +14,7 @@ using RestSharp;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using app.core;
 
 namespace app.android
 {

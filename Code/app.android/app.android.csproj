@@ -61,7 +61,6 @@
     <Compile Include="ContentManager.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\ArticlePublish.cs" />
-    <Compile Include="ActivityExtensions.cs" />
     <Compile Include="Models\ContentDto.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\logo72x72.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\app.core\app.core.csproj">
+      <Project>{A008FCAE-8031-4E0C-A4C1-B773F48A0D94}</Project>
+      <Name>app.core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

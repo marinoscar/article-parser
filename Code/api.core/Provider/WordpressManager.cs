@@ -37,7 +37,7 @@ namespace api.core.Provider
             {
                 post = new Post()
                 {
-                    post_author = item.Author,
+                    post_author = "internet_content",
                     post_content = item.FormattedContent,
                     post_date = DateTime.Today,
                     post_title = item.Title,
@@ -59,6 +59,7 @@ namespace api.core.Provider
                 new CustomFields() { key = "title-hash", value = item.TitleHash },
                 new CustomFields() { key = "content-hash", value = item.ContentHash },
                 new CustomFields() { key = "item-id", value = item.Id },
+                new CustomFields() { key = "article-author", value = item.Author },
                 new CustomFields() { key = "posted-by-marin-api", value = "true" },
             };
         }

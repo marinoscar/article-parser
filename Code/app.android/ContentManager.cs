@@ -13,6 +13,7 @@ using app.android.Models;
 using RestSharp;
 using System.Net;
 using Newtonsoft.Json;
+using app.core;
 
 namespace app.android
 {
@@ -41,7 +42,7 @@ namespace app.android
 
         private IRestResponse GetResponse(string method, Method verb, string payload)
         {
-            var token = Activity.GetToken();
+            var token = GetToken();
             var url = string.Format("{0}/{1}", GetRootUrl(), method);
             var client = new RestClient(url);
             var request = new RestRequest(verb);
@@ -51,6 +52,13 @@ namespace app.android
                 request.AddParameter("application/json", payload, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             return response;
+        }
+
+        private string GetToken()
+        {
+            var json = Activity.GetJsonAsset("private.json");
+            if (json["token"] == null) return null;
+            return json.Value<string>("token");
         }
 
         private Tuple<bool, string> ParseResponse(IRestResponse res)
