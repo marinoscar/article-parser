@@ -13,7 +13,7 @@ using app.android.Models;
 using RestSharp;
 using System.Net;
 using Newtonsoft.Json;
-using app.core;
+using luval.android.utils;
 
 namespace app.android
 {

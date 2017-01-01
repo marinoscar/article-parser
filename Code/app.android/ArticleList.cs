@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using app.android.Models;
-using app.core;
+using luval.android.utils;
 
 namespace app.android
 {

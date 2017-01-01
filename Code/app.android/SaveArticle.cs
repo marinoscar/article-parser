@@ -14,7 +14,7 @@ using RestSharp;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using app.core;
+using luval.android.utils;
 
 namespace app.android
 {

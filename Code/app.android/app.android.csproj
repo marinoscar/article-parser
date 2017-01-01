@@ -107,9 +107,9 @@
     <AndroidResource Include="Resources\drawable\logo72x72.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\app.core\app.core.csproj">
-      <Project>{A008FCAE-8031-4E0C-A4C1-B773F48A0D94}</Project>
-      <Name>app.core</Name>
+    <ProjectReference Include="..\..\..\xamarin-utils\Code\Android\luval.android.utils\luval.android.utils.csproj">
+      <Project>{fa921064-5a12-4a99-9dca-f0720af49e91}</Project>
+      <Name>luval.android.utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
