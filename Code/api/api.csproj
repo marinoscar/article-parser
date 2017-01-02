@@ -161,6 +161,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\parse.css" />
+    <Content Include="Content\parse.js" />
+    <Content Include="Content\spinner.css" />
     <Content Include="Global.asax" />
     <Content Include="parse.html" />
     <Content Include="Web.config" />
