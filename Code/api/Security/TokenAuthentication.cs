@@ -22,7 +22,7 @@ namespace api.Security
                 if(string.IsNullOrWhiteSpace(token))
                     context.ErrorResult = new TokenAuthenticationFailureResult("Token not provided", context.Request);
                 if (!TokenManager.IsValid(token))
-                    context.ErrorResult = new TokenAuthenticationFailureResult("Invalid token provided", context.Request);
+                    context.ErrorResult = new TokenAuthenticationFailureResult(string.Format("{0} is not a valid token", token), context.Request);
             });
         }
 

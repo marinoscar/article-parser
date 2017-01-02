@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Parse Article</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <style>
+        #loading-indicator {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        .post-image-formatting-class {
+            height: auto;
+            width: auto;
+            max-width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $(document).ajaxSend(function (event, request, settings) {
+                $('#loading-indicator').show();
+            });
+
+            $(document).ajaxComplete(function (event, request, settings) {
+                $('#loading-indicator').hide();
+            });
+
+            $('#btn-parse').on('click', function () {
+                parseUrl();
+            });
+        });
+
+        function parseUrl() {
+            var url = $('#txt-parse').val();
+            callService(url);
+        }
+
+        function callService(url) {
+            $.ajax({
+                url: '/api/parser/?url=' + encodeURI(url),
+                dataType: 'json',
+                //headers: {
+                //    'token': 'b5d4830dc7fc4881b9a3e89154f86a20b911b5fb33ef4cf99672ba2f82dbb42ac5d79008e10d4ab187f40aded3d7f29db51e78bf654a4f24a5f62415b9c334e1',
+                //    'Content-Type': 'application/json'
+                //},
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader('token', 'b5d4830dc7fc4881b9a3e89154f86a20b911b5fb33ef4cf99672ba2f82dbb42ac5d79008e10d4ab187f40aded3d7f29db51e78bf654a4f24a5f62415b9c334e1');
+                },
+                success: function (data, textStatus, xhr) {
+                    loadContent(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    $('#doc').addClass('hidden');
+                    $('#error').removeClass('hidden');
+                    $('#error-content').html('<p>' + xhr.responseJSON.Message + '</p>')
+                }
+            });
+        }
+
+        function loadContent(item) {
+            var keyHtml = '';
+            var catHtml = '';
+            $('#article-title').html(item.Title);
+            $('#article-author').html(item.Author);
+            $('#article-url').html(item.Url).attr('href', item.Url);
+            $('#article-content').html(item.FormattedContent);
+            for (i = 0; i < item.Keywords.length; i++) {
+                keyHtml += '<span class="label label-success">' + item.Keywords[i] + '</span><span style="padding-left:5px;"></span>';
+            }
+            for (i = 0; i < item.Categories.length; i++) {
+                catHtml += '<span class="label label-info" >' + item.Categories[i] + '</span></span><span style="padding-left:5px;"></span>';
+            }
+            $('#panel-cat').html(catHtml);
+            $('#panel-key').html(keyHtml);
+            $('#doc').removeClass('hidden');
+            $('#error').addClass('hidden');
+        }
+    </script>
+
+</head>
+<body>
+    <img src="https://marindata.blob.core.windows.net/web-assets/spinner.gif" id="loading-indicator" style="display:none" />
+    <div class="container">
+        <div style="padding-bottom: 50px;"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="input-group input-group-lg">
+                    <input id="txt-parse" type="url" class="form-control" placeholder="Enter Url">
+                    <span class="input-group-btn">
+                        <button id="btn-parse" class="btn btn-primary" type="button">Parse</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div style="padding-bottom: 50px;"></div>
+        <div id="doc" class="hidden">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Categories</div>
+                        <div class="panel-body">
+                            <div id="panel-cat"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">Keywords</div>
+                        <div id="panel-key" class="panel-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Article Information</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h1><span id="article-title"></span></h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Author: <span id="article-author"></span></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h4>Url: <a id="article-url" href="#" target="_blank"></a></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div id="article-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="error" class="row hidden">
+            <div class="col-xs-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Error Found Processing Request</h3>
+                    </div>
+                    <div id="error-content" class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

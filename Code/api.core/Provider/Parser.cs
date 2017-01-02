@@ -106,6 +106,8 @@ namespace api.core.Provider
                 var img = document.CreateElement("img");
                 img.SetAttribute("src", imgUrl);
                 if(!string.IsNullOrWhiteSpace(options.ImageClass))
+                    img.SetAttribute("class", options.ImageClass);
+                else
                     img.SetAttribute("class", "post-image-formatting-class");
                 body.Insert(AngleSharp.Dom.AdjacentPosition.AfterBegin, img.OuterHtml);
             }
